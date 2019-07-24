@@ -1,0 +1,20 @@
+COOJA:
+go to the directory where files are located
+$ make telosb 
+open cooja 
+motes/add motes/sky motes/browse/folder containing files/built/main.exe
+
+TOSSIM:
+go to the directory where files are located
+$ make micaz sim  #for compiling code of simulation
+$ python RunSimulationScript.py  #for running simulation and see dbg messages
+
+
+
+
+
+
+
+
+
+
