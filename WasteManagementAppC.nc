@@ -42,11 +42,12 @@
 
 configuration WasteManagementAppC {}
 implementation {
-  components MainC, WasteManagementC, RandomC as App, WasteC, RandomC;
+  components MainC, WasteManagementC as App, WasteC;
   components new AMSenderC(AM_RADIO_COUNT_MSG);
   components new AMReceiverC(AM_RADIO_COUNT_MSG);
   components new TimerMilliC();
   components ActiveMessageC;
+  components RandomC;
   
   App.Boot -> MainC.Boot;
   App.Receive -> AMReceiverC;
@@ -54,7 +55,7 @@ implementation {
   App.AMControl -> ActiveMessageC;
   App.MilliTimer -> TimerMilliC;
   App.Packet -> AMSenderC;
-  App.Random -> RandomC
+  App.Random -> RandomC;
 }
 
 
