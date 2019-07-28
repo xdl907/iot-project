@@ -56,6 +56,7 @@
 
 module WasteManagementC @safe() {
   uses {
+    interface Random //controllare questo e anche quello in WasteManagementAppC
     interface Leds;
     interface Boot;
     interface Receive;
@@ -78,7 +79,7 @@ implementation {
 
   event void AMControl.startDone(error_t err) {
     if (err == SUCCESS) {
-      call MilliTimer.startPeriodic(250);
+      call MilliTimer.startPeriodic((Random.rand16() % (30000-1000)) + 9000); // ?????????? DOVREBBE generare numeri casuali tra 1000 e 30000 ma non ne sono sicuro, si deve controllare anche il wiring
     }
     else {
       call AMControl.start();
