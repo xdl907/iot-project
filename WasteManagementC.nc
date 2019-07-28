@@ -78,13 +78,9 @@ implementation {
   }
 
   event void AMControl.startDone(error_t err) {
-  //quando il MilliTimer non è già attivo, lo si reinizializza con un valore random compreso tra 1000 e 30000 (1 e 30 secondi) (non testato e/o inutile)
     if (err == SUCCESS) {
-      while (1) { 
-        if MilliTimer.isRunning() == 0 {
-          rand=(Random.rand16() % (30000-1000)) + 1000;
-          call MilliTimer.startOneshot(rand); 
-        }      
+      rand=(Random.rand16() % (30000-1000)) + 1000;
+      call MilliTimer.startOneshot(rand); 
     }
     else {
       call AMControl.start();
@@ -112,6 +108,8 @@ implementation {
 	      dbg("WasteManagementC", "WasteManagementC: packet sent.\n", counter);	
 	      locked = TRUE;
       }
+    rand=(Random.rand16() % (30000-1000)) + 1000;
+    call MilliTimer.startOneshot(rand);
     }
   }
 
