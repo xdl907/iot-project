@@ -1,5 +1,5 @@
 /**
- *  @author Luca Pietro Borsani
+ *  @author Alessandro Petocchi, Giuseppe Leone
  */
 
 #ifndef SENDACK_H
@@ -14,15 +14,15 @@ typedef nx_struct my_msg1 {
 typedef nx_struct my_msg2 {
 	nx_uint8_t msg_type; 
 	nx_uint16_t msg_id;
-	nx_uint16_t excessTrash;
+	nx_uint16_t excess_trash;
 } moveMsg;
 
 typedef nx_struct my_msg3 {
 	nx_uint8_t msg_type; 
 	nx_uint16_t msg_id;
-	nx_uint16_t coordX;
-	nx_uint16_t coordY;
-	nx_uint8_t nodeID;
+	nx_uint16_t coord_X;
+	nx_uint16_t coord_Y;
+	nx_uint8_t node_ID;
 } alertMsg;
 
 #define REQ 1
