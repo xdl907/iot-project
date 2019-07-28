@@ -78,8 +78,13 @@ implementation {
   }
 
   event void AMControl.startDone(error_t err) {
+  //quando il MilliTimer non è già attivo, lo si reinizializza con un valore random compreso tra 1000 e 30000 (1 e 30 secondi) (non testato e/o inutile)
     if (err == SUCCESS) {
-      call MilliTimer.startPeriodic((Random.rand16() % (30000-1000)) + 1000); // ?????????? DOVREBBE generare numeri casuali tra 1000 e 30000 ma non ne sono sicuro, si deve controllare anche il wiring
+      while (1) { 
+        if MilliTimer.isRunning() == 0 {
+          rand=(Random.rand16() % (30000-1000)) + 1000;
+          call MilliTimer.startOneshot(rand); 
+        }      
     }
     else {
       call AMControl.start();
