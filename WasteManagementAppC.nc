@@ -53,7 +53,6 @@ implementation {
   App.Receive -> AMReceiverC;
   App.AMSend -> AMSenderC;
   App.AMControl -> ActiveMessageC;
-  App.Leds -> WasteC;
   App.MilliTimer -> TimerMilliC;
   App.Packet -> AMSenderC;
 }
