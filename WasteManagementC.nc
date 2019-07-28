@@ -41,7 +41,7 @@
  */
  
 #include "Timer.h"
-#include "RadioCountToLeds.h"
+#include "WasteManagement.h"
  
 /**
  * Implementation of the RadioCountToLeds application. RadioCountToLeds 
@@ -79,7 +79,7 @@ implementation {
 
   event void AMControl.startDone(error_t err) {
     if (err == SUCCESS) {
-      call MilliTimer.startPeriodic((Random.rand16() % (30000-1000)) + 9000); // ?????????? DOVREBBE generare numeri casuali tra 1000 e 30000 ma non ne sono sicuro, si deve controllare anche il wiring
+      call MilliTimer.startPeriodic((Random.rand16() % (30000-1000)) + 1000); // ?????????? DOVREBBE generare numeri casuali tra 1000 e 30000 ma non ne sono sicuro, si deve controllare anche il wiring
     }
     else {
       call AMControl.start();
