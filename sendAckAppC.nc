@@ -17,6 +17,7 @@ implementation {
   components ActiveMessageC;
   components new TimerMilliC();
   components new FakeSensorC();
+  components RandomC;
 
   //Boot interface
   App.Boot -> MainC.Boot;
@@ -40,6 +41,8 @@ implementation {
 
   //Fake Sensor read
   App.Read -> FakeSensorC;
-
+  
+  //Random interface
+  App.Random -> RandomC;
 }
 
