@@ -145,7 +145,7 @@ module sendAckC {
 			dbg("role","I'm node %d",TOS_NODE_ID,": position x %d",mote.positionX," position y %d",mote.positionY);
 
 		rand=(Random.rand16() % (30000-1000)) + 1000;
-		call MilliTimer.startOneshot(rand);
+		call TimerTrashThrown.startOneshot(rand);
 	}
 
 	else{
@@ -168,7 +168,7 @@ module sendAckC {
 			dbg("role","I'm node %d",TOS_NODE_ID,": trash quantity %d",mote.trash);
 		}
 
-		else if(tempFilling<100){
+		else if(tempFilling > 85 && tempFilling<100) {
 			// alert mode
 			mote.trash=mote.trash+tempFilling;
 			post sendAlertMsg();
@@ -179,7 +179,7 @@ module sendAckC {
 		}
 
 		rand=(Random.rand16() % (30000-1000)) + 1000;
-		call MilliTimer.startOneshot(rand);
+		call TimerTrashThrown.startOneshot(rand);
 	}
 	  
 	event void TimerTruck.fired() {
