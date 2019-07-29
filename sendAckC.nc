@@ -16,13 +16,14 @@ module sendAckC {
   uses {
 	interface Boot; //always here and it's the starting point
     	//interfaces for communications
-	interface AMPacket; 
+    interface AMPacket; 
 	interface Packet;
 	interface PacketAcknowledgements;
     interface AMSend;
 
     interface SplitControl;
     interface Receive;
+    interface Random;
 
     interface Timer<TMilli> as TimerTruck;
     interface Timer<TMilli> as TimerTrashThrown;
@@ -105,8 +106,8 @@ module sendAckC {
 		dbg("radio","Radio on!\n");
 
 
-		mote.positionX=rand8() % 100 + 1;
-		mote.positionY=rand8() % 100 + 1;
+		mote.positionX=Random.rand8() % 100 + 1;
+		mote.positionY=Random.rand8() % 100 + 1;
 
 		if(TOS_NODE_ID==8)
 			dbg("role","I'm the truck: position x %d",mote.positionX," position y %d",mote.positionY);
@@ -129,7 +130,7 @@ module sendAckC {
   //***************** MilliTimer interface ********************//
   event void TimerTrashThrown.fired() {
 
-  	tempFilling=mote.trash+rand8() % 10 + 1;
+  	tempFilling=mote.trash+Random.rand8() % 10 + 1;
 
   	if(tempFilling<85) {
   		//normal status
