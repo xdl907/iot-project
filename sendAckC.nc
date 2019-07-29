@@ -109,7 +109,7 @@ module sendAckC {
 		mote.positionY=rand8() % 100 + 1;
 
 		if(TOS_NODE_ID==8)
-			dbg("role","I'm the truck: position x %d",mote[7].positionX," position y %d",mote[7].positionY);
+			dbg("role","I'm the truck: position x %d",mote.positionX," position y %d",mote.positionY);
 		else
 			dbg("role","I'm node %d",TOS_NODE_ID,": position x %d",mote.positionX," position y %d",mote.positionY);
 
