@@ -49,3 +49,6 @@ The travel time (that is actually only a delay) between the motes is:
 **t = α x (Euclidean distance between the two motes)**
 
 where α_bin→bin << α_bin→truck.
+
+## Topology used
+![alt text](https://i.imgur.com/7qOtcgU.png)
