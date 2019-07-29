@@ -201,14 +201,14 @@ implementation {
 					post sendTruckMsg();
 				} 
 
-				else {
-					dbg_clear("radio_ack", "but ack was not received");
-					if(TOS_NODE_ID==8) {
-						post sendAlertMsg();
-					}
+			else { //ack is not received
+				dbg_clear("radio_ack", "but ack was not received");
+				if(TOS_NODE_ID==8) { //non capisco questo passaggio
+					post sendAlertMsg();
 				}
+			}
 
-			dbg_clear("radio_send", " at time %s \n", sim_time_string());
+			dbg_clear("radio_send", " at time %s \n", sim_time_string()); //e neanche questo
 		}
 	}
 
