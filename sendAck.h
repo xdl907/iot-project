@@ -30,9 +30,7 @@ typedef nx_struct my_msg3 {
 #define MOVE 3
 
 enum{
-    ALERTMSG=1,
-    TRUCKMSG=2,
-    MOVEMSG=3,
+    AM_MY_MSG=6
 };
 
 #endif
