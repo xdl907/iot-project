@@ -12,8 +12,12 @@ configuration sendAckAppC {}
 implementation {
 
   components MainC, sendAckC as App;
-  components new AMSenderC(AM_MY_MSG);
-  components new AMReceiverC(AM_MY_MSG);
+  components new AMSenderC(ALERTMSG) as AlertMsgSender;
+  components new AMSenderC(TRUCKMSG) as TruckMsgSender;
+  components new AMSenderC(MOVEMSG) as MoveMsgSender;
+  components new AMReceiverC(ALERTMSG) as AlertMsgReceiver;
+  components new AMReceiverC(TRUCKMSG) as TruckMsgReceiver;
+  components new AMReceiverC(MOVEMSG) as MoveMsgReceiver;
   components ActiveMessageC;
   components new TimerMilliC();
   components new FakeSensorC();
@@ -23,8 +27,13 @@ implementation {
   App.Boot -> MainC.Boot;
 
   //Send and Receive interfaces
-  App.Receive -> AMReceiverC;
-  App.AMSend -> AMSenderC;
+  App.ReceiveAlert -> AlertMsgReceiver;
+  App.ReceiveTruck -> TruckMsgReceiver;
+  App.ReceiveMove -> MoveMsgReceiver;
+  App.SendAlert -> AlertMsgSender;
+  App.SendTruck -> TruckMsgSender;
+  App.SendMove -> MoveMsgSender;
+  //App.AMSend -> AMSenderC;
 
   //Radio Control
   App.SplitControl -> ActiveMessageC;
