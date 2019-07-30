@@ -26,11 +26,13 @@ typedef nx_struct my_msg3 {
 } alertMsg;
 
 #define ALERT 1
-#define MOVE 2 
-#define TRUCK 3
+#define TRUCK 2 
+#define MOVE 3
 
 enum{
-AM_MY_MSG = 6,
+    ALERTMSG=1,
+    TRUCKMSG=2,
+    MOVEMSG=3,
 };
 
 #endif
