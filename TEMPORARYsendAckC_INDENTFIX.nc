@@ -28,6 +28,7 @@ module sendAckC {
 		interface Timer<TMilli> as TimerTruck;
 		interface Timer<TMilli> as TimerTrashThrown;
 		interface Timer<TMilli> as TimerMoveTrash;
+		interface Timer<TMilli> as TimerAlert;
 		//used to perform sensor reading (to get the value from a sensor)
 		interface Read<uint16_t>;
 	}
@@ -91,6 +92,7 @@ implementation {
 			dbg_clear("radio_send", "\n ");
 			dbg_clear("radio_pack", "\n");
 		}
+		call TimerAlert.startOneshot(10000); //10 secondi
 	}
 
 	//****************** Task send truck message *****************//
@@ -180,6 +182,10 @@ implementation {
 
 	event void TimerTruck.fired() {
 	//TODO timer non ancora impostato
+	}
+	
+	event void TimerTruck.fired() {
+	    call sendAlertMsg(); // questo implementa l'invio periodico dei msg alert
 	}
 
 	event void TimerMoveTrash.fired() {
