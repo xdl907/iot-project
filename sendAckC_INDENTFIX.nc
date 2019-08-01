@@ -184,7 +184,7 @@ implementation {
 	//TODO timer non ancora impostato
 	}
 	
-	event void TimerTruck.fired() {
+	event void TimerAlert.fired() {
 	    call sendAlertMsg(); // questo implementa l'invio periodico dei msg alert
 	}
 
