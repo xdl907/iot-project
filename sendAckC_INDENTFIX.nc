@@ -16,7 +16,7 @@ module sendAckC {
 	uses {
 		interface Boot; //always here and it's the starting point
 		//interfaces for communications
-		interface AMPacket; 
+		interface AMPacket;
 		interface Packet;
 		interface PacketAcknowledgements;
 		interface AMSend;
@@ -34,13 +34,13 @@ module sendAckC {
 		interface Read<uint16_t>;
 	}
 
-} 
+}
 
 implementation {
 
 	uint8_t counter=0;
 	uint8_t rec_id;
-	uint16_t rand;
+	uint16_t rnd;
 	message_t packet;
 
 	task void sendReq();
@@ -136,7 +136,7 @@ implementation {
 			mess->posX=mote.positionX;
 			mess->posY=mote.positionY;
 			mess->excess_trash=excessTrash;
-		
+
 			dbg("radio_send", "Send a move request to node at time %s \n", sim_time_string());
 
 			if(call AMSend.send(AM_BROADCAST_ADDR,&packet,sizeof(moveMsg)) == SUCCESS) {
@@ -155,11 +155,11 @@ implementation {
 				dbg_clear("radio_pack", "\n");
 			}
 
-			call TimerTrashThrown.startOneshot(rand);
+			call TimerTrashThrown.startOneshot(rnd);
 
 		}
 
-		else if(alertMode==false){ //reply with move response 
+		else if(alertMode==false){ //reply with move response
 			mess->msg_type = MOVERESP;
 			mess->msg_id = counter++;
 			mess->posX=mote.positionX;
@@ -208,8 +208,8 @@ implementation {
 
 			else {
 				dbg("role","I'm node %d",TOS_NODE_ID,": position x %d",mote.positionX," position y %d",mote.positionY);
-				rand=(Random.rand16() % (30000-1000)) + 1000;
-				call TimerTrashThrown.startOneshot(rand);
+				rnd=(Random.rand16() % (30000-1000)) + 1000;
+				call TimerTrashThrown.startOneshot(rnd);
 			}
 		}
 
@@ -241,7 +241,7 @@ implementation {
 			}
 			else{//fill completely the bin, store in excessTrash garbage not collected
 				excessTrash=excessTrash+(tempFilling-(100 - mote.trash));
-				mote.trash=100; 
+				mote.trash=100;
 				dbg("role","I'm node %d",TOS_NODE_ID,": trash quantity %d ",mote.trash, "(alert mode) excess trash %d", excessTrash);
 			}
 
@@ -249,7 +249,7 @@ implementation {
 				alertMode=true;
 				call TimerAlert.startPeriodic(10000); //10 secondi
 			}
-			
+
 		}
 
 		else {
@@ -260,8 +260,8 @@ implementation {
 			post sendMoveMsg();
 		}
 
-		rand=(Random.rand16() % (30000-1000)) + 1000;
-		call TimerTrashThrown.startOneshot(rand);
+		rnd=(Random.rand16() % (30000-1000)) + 1000;
+		call TimerTrashThrown.startOneshot(rnd);
 	}
 
 	event void TimerTruck.fired() {
@@ -269,9 +269,9 @@ implementation {
 		mote.positionX=truckDestX;//when the garbage truck moves to a bin it acquire the coordinates of the bin itself.
 		mote.positionY=truckDestY;
 	}
-	
+
 	event void TimerAlert.fired() {
-	    post sendAlertMsg(); // questo implementa l'invio periodico dei msg alert
+		post sendAlertMsg(); // questo implementa l'invio periodico dei msg alert
 	}
 
 	event void TimerMoveTrash.fired() {
@@ -279,7 +279,7 @@ implementation {
 	}
 
 	event void TimerListeningMoveResp.fired() {
-		
+
 	}
 
 	//********************* AMSend interface ****************//
@@ -321,7 +321,7 @@ implementation {
 			timeT=ALFABINTRUCK*sqrt((mote.positionX-truckDestX)*(mote.positionX-truckDestX)+(mote.positionY-truckDestY)*(mote.positionY-truckDestY));
 			call TimerTruck.startOneshot(timeT);
 			alertMsgSourceID=call AMPacket.source( buf );//check this, needed to store the node id of the sender bin of alert msg and used in sendTruckMsg
-		
+
 			dbg("radio_rec","Message received at time %s \n", sim_time_string());
 			dbg("radio_pack",">>>Pack \n \t Payload length %hhu \n", call Packet.payloadLength( buf ) );
 			dbg_clear("radio_pack","\t Source: %hhu \n", call AMPacket.source( buf ) );
@@ -341,7 +341,7 @@ implementation {
 		if (len == sizeof(truckMsg) && TOS_NODE_ID==(call AMPacket.destination( buf ))) {
 			mote.trash=0;
 			alertMode=false;
-			call TimerAlert.stop(); //stop sending periodic alert msg 
+			call TimerAlert.stop(); //stop sending periodic alert msg
 			truckMsg* mess=(truckMsg*)payload;
 			dbg("radio_rec","Message received at time %s \n", sim_time_string());
 			dbg("radio_pack",">>>Pack \n \t Payload length %hhu \n", call Packet.payloadLength( buf ) );
@@ -383,4 +383,3 @@ implementation {
 	}
 
 }
-
