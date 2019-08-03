@@ -14,6 +14,8 @@ typedef nx_struct my_msg1 {
 typedef nx_struct my_msg2 {
 	nx_uint8_t msg_type; 
 	nx_uint16_t msg_id;
+	nx_uint16_t pos_X;
+	nx_uint16_t pos_Y;
 	nx_uint16_t excess_trash;
 } moveMsg;
 
@@ -27,8 +29,9 @@ typedef nx_struct my_msg3 {
 
 #define ALERT 1
 #define TRUCK 2 
-#define MOVE 3
-#define ALFABINTRUCK 3
+#define MOVEREQ 3
+#define MOVERESP 4 
+#define ALFABINTRUCK 30
 #define ALFABINBIN 2
 
 enum{
