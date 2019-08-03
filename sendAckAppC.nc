@@ -39,6 +39,7 @@ implementation {
   App.TimerMoveTrash -> TimerMilliC;
   App.TimerTrashThrown -> TimerMilliC;
   App.TimerAlert -> TimerMilliC;
+  App.TimerListeningMoveResp -> TimerMilliC;
 
   //Fake Sensor read
   App.Read -> FakeSensorC;
