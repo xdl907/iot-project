@@ -31,6 +31,7 @@ typedef nx_struct my_msg3 {
 #define TRUCK 2 
 #define MOVEREQ 3
 #define MOVERESP 4 
+#define MOVETRASH 5
 #define ALFABINTRUCK 30
 #define ALFABINBIN 2
 
