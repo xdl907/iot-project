@@ -8,7 +8,7 @@
 #include "sendAck.h"
 
 configuration sendAckAppC {}
-
+  
 implementation {
 
   components MainC, sendAckC as App;
@@ -16,7 +16,6 @@ implementation {
   components new AMReceiverC(AM_MY_MSG);
   components ActiveMessageC;
   components new TimerMilliC();
-  components new FakeSensorC();
   components RandomC;
 
   //Boot interface
@@ -41,8 +40,6 @@ implementation {
   App.TimerAlert -> TimerMilliC;
   App.TimerListeningMoveResp -> TimerMilliC;
 
-  //Fake Sensor read
-  App.Read -> FakeSensorC;
   
   //Random interface
   App.Random -> RandomC;
