@@ -15,7 +15,11 @@ implementation {
   components new AMSenderC(AM_MY_MSG);
   components new AMReceiverC(AM_MY_MSG);
   components ActiveMessageC;
-  components new TimerMilliC();
+  components new TimerMilliC() as Timer1;
+  components new TimerMilliC() as Timer2;
+  components new TimerMilliC() as Timer3;
+  components new TimerMilliC() as Timer4;
+  components new TimerMilliC() as Timer5;
   components RandomC;
 
   //Boot interface
@@ -34,11 +38,11 @@ implementation {
   App.PacketAcknowledgements->ActiveMessageC;
 
   //Timer interface
-  App.TimerTruck -> TimerMilliC;
-  App.TimerMoveTrash -> TimerMilliC;
-  App.TimerTrashThrown -> TimerMilliC;
-  App.TimerAlert -> TimerMilliC;
-  App.TimerListeningMoveResp -> TimerMilliC;
+  App.TimerTruck -> Timer1;
+  App.TimerMoveTrash -> Timer2;
+  App.TimerTrashThrown -> Timer3;
+  App.TimerAlert -> Timer4;
+  App.TimerListeningMoveResp -> Timer5;
 
   
   //Random interface
