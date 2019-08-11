@@ -50,5 +50,5 @@ The travel time (that is actually only a delay) between the motes is:
 
 where α_bin→bin << α_bin→truck.
 
-## Topology used
-![alt text](https://i.imgur.com/7qOtcgU.png)
+## Topologies
+![alt-text-1](https://i.imgur.com/uJ9GCO9.png) ![alt-text-2](https://i.imgur.com/yzk8MgP.png)
