@@ -67,9 +67,10 @@ implementation {
 	struct node_t {
 		uint8_t positionX;
 		uint8_t positionY;
-		uint8_t trash=0;
-		uint8_t excessTrash=0;
+		uint8_t trash;
+		uint8_t excessTrash;
 	} mote;
+
 
 	struct neigh_t {
 	uint8_t positionX;
@@ -238,8 +239,10 @@ implementation {
 		if(err == SUCCESS) {
 			dbg("radio","Radio on!\n");
 
-			mote.positionX=Random.rand8() % 100 + 1;
-			mote.positionY=Random.rand8() % 100 + 1;
+			mote.positionX= call Random.rand16() % 100 + 1;
+			mote.positionY=call Random.rand8() % 100 + 1;//TODO rand8 doesn't exist, only rand16/rand32
+			mote.trash=0;
+			mote.excessTrash=0;
 
 			if(TOS_NODE_ID==8) {
 				dbg("role","I'm the truck: position x %d",mote.positionX," position y %d",mote.positionY);
@@ -247,8 +250,8 @@ implementation {
 
 			else {
 				dbg("role","I'm node %d",TOS_NODE_ID,": position x %d",mote.positionX," position y %d",mote.positionY);
-				rnd=(Random.rand16() % (30000-1000)) + 1000;
-				call TimerTrashThrown.startOneshot(rnd);
+				rnd=(call Random.rand16() % (30000-1000)) + 1000;
+				call TimerTrashThrown.startOneShot(rnd);
 			}
 		}
 
@@ -259,12 +262,12 @@ implementation {
 
 	}
 
-	event void SplitControl.stopDone(error_t err) {//do nothing}
+	event void SplitControl.stopDone(error_t err) {}
 
 	//***************** MilliTimer interfaces ********************//
 	event void TimerTrashThrown.fired() {
 
-		tempFilling=Random.rand8() % 10 + 1;
+		tempFilling=call Random.rand8() % 10 + 1;
 
 		if(mote.trash<85) {
 			//normal status
@@ -299,12 +302,12 @@ implementation {
 			post sendMoveMsg();
 		}
 
-		rnd=(Random.rand16() % (30000-1000)) + 1000;
-		call TimerTrashThrown.startOneshot(rnd);
+		rnd=(call Random.rand16() % (30000-1000)) + 1000;
+		call TimerTrashThrown.startOneShot(rnd);
 	}
 
 	event void TimerTruck.fired() {
-		post sendTruckMsg()
+		post sendTruckMsg();
 		mote.positionX=truckDestX;//when the garbage truck moves to a bin it acquire the coordinates of the bin itself.
 		mote.positionY=truckDestY;
 	}
@@ -328,8 +331,8 @@ implementation {
 			minimum = neighborDistance[0];
 			for (i = 1; i < moveRespCounter; i++)
 			{
-				if (array[i] < minimum){
-					minimum = array[i];
+				if (neighborDistance[i] < minimum){
+					minimum = neighborDistance[i];
 					location = i+1;
 				}
 			}
@@ -359,7 +362,7 @@ implementation {
 					isDeliveringExcessGarbage=FALSE;
 
 				else {//if I've sent successfully a broadcast move msg, I start the 2 sec timer for collecting responses
-				call TimerListeningMoveResp.startOneshot(2000); //2 sec
+				call TimerListeningMoveResp.startOneShot(2000); //2 sec
 				isListeningMoveResp=TRUE;
 				}
 
@@ -393,7 +396,7 @@ implementation {
 			truckDestX=mess->coord_X;
 			truckDestY=mess->coord_Y;
 			timeT=ALFABINTRUCK*sqrt((mote.positionX-truckDestX)*(mote.positionX-truckDestX)+(mote.positionY-truckDestY)*(mote.positionY-truckDestY));//compute tTruck
-			call TimerTruck.startOneshot(timeT);
+			call TimerTruck.startOneShot(timeT);
 			alertMsgSourceID=call AMPacket.source( buf );//check this, needed to store the node id of the sender bin of alert msg and used in sendTruckMsg
 		
 			dbg("radio_rec","Message received at time %s \n", sim_time_string());
@@ -416,7 +419,7 @@ implementation {
 			mote.trash=0;
 			alertMode=FALSE;
 			call TimerAlert.stop(); //stop sending periodic alert msg 
-			truckMsg* mess=(truckMsg*)payload;
+			truckMsg * mess=(truckMsg*)payload;//TODO cannot find any mistakes
 			dbg("radio_rec","Message received at time %s \n", sim_time_string());
 			dbg("radio_pack",">>>Pack \n \t Payload length %hhu \n", call Packet.payloadLength( buf ) );
 			dbg_clear("radio_pack","\t Source: %hhu \n", call AMPacket.source( buf ) );
@@ -436,7 +439,7 @@ implementation {
 			if(mess->msg_type == MOVEREQ){
 
 				timeT=ALFABINBIN*sqrt((mote.positionX-mess->pos_X)*(mote.positionX-mess->pos_X)+(mote.positionY-mess->pos_Y)*(mote.positionY-mess->pos_Y));//compute tBin
-				call TimerMoveTrash.startOneshot(timeT); // send a move resp after tBin time
+				call TimerMoveTrash.startOneShot(timeT); // send a move resp after tBin time
 				moveReqMsgSourceID=call AMPacket.source( buf ); //store the tos id of the mote which has sent the request
 
 				dbg("radio_rec","Message received at time %s \n", sim_time_string());
@@ -507,6 +510,7 @@ implementation {
 
 
 		return buf;
+
 
 	}
 
