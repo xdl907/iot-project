@@ -1,6 +1,13 @@
-\documentclass[]{article}
-
+\documentclass[a4paper,10pt]{article}
+\usepackage[margin=1.5in]{geometry}
+\usepackage{amsmath}
+\usepackage{fancyhdr}
 %opening
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textit{Leone, Petocchi}}
+\rhead{\textit{WASTE MANAGEMENT SYSTEM}}
+\cfoot{\thepage}
 \title{IoT project: a waste management system}
 \author{Giuseppe Leone, 10518770 \\ Alessandro Petocchi, 10661410}
 \date{}
@@ -15,9 +22,9 @@ The network is composed by two types of motes: the \textit{bin motes}, that coll
 
 \noindent An additional capability of the bin motes is the possibility to communicate to its neighbors when they reach full capacity, so that any incoming garbage can be transferred to the nearest available bin, thus avoiding garbage overflow.
 
-\noindent The whole network is emulated using TOSSIM. In the TinyOS script, serial communication is implemented, so that the simulation may be attached to either TOSSIM-Live or NodeRed, where the messages circulating in the network will be visible.
+\noindent The whole network is emulated using TOSSIM. Serial communication is implemented in the application, in order to attach the simulation to either TOSSIM-Live or NodeRed, where the output of the messages circulating in the network will be visible.
 \section{Technical details}
-At network startup, specifically when the \texttt{SplitControl.startDone} event is signaled without errors, all motes randomly generate ther X and Y coordinates, that are inserted into a \texttt{mote} struct. 
+At network startup, specifically when the \texttt{SplitControl.startDone} event is signaled without errors, all motes randomly generate their X and Y coordinates, that are inserted into a \texttt{mote} struct. 
 
 \noindent When startup is completed, network operation is divided into two phases:
 \begin{itemize}
@@ -26,20 +33,24 @@ At network startup, specifically when the \texttt{SplitControl.startDone} event 
 	\begin{enumerate}
 		\item $\texttt{mote.trash} < 85$: \textbf{NORMAL MODE}.  
 		\item $85 \leq \texttt{mote.trash} < 100$: the bin is almost full. If this condition is met, the bin will go in \textbf{ALERT MODE}.
-		\item $\texttt{mote.trash} = 100$: the bin cannot store more garbage, and will go in \textbf{FULL/NEIGHBOR MODE}.
+		\item $\texttt{mote.trash} = 100$: the bin cannot store any more garbage and will go in \textbf{NEIGHBOR MODE}.
 	\end{enumerate}
 \end{itemize}
 \subsection{Alert mode}
-This mode is triggered by setting the \texttt{alertMode} flag to true. If this condition is met, the bin mote will send periodical \texttt{ALERT} type messages to the truck. To accomplish this, we start a 10 second periodical \texttt{TimerAlert}: when it's fired, it will call the \texttt{sendAlertMsg} task. \\\\
+This mode is triggered by setting the \texttt{alertMode} flag to true. If this condition is met, the bin mote will send periodic \texttt{ALERT} type messages to the truck. To accomplish this a \texttt{TimerAlert} with a period of ten seconds is started: when fired, the mote will call the \texttt{sendAlertMsg} task. \\\\
 The \texttt{alertMsg} type is defined in the header file, and it contains the mote's X and Y coordinates along with its ID number. The message is sent only to the truck mote (identified in the topology with \texttt{TOS\_NODE\_ID} = 8).
 \subsection{The truck}
-The truck mote has an infinite trash capacity and empties the bin's filling level when requested. Upon the receiving of the \texttt{ALERT} message, the truck will fetch the bin's coordinates, and will set a \texttt{TimerTruck} to simulate the trip from its original position to the bin. \\\\
-The travel time is defined as
-$$t = \alpha_{truck\rightarrow bin}\sqrt{\displaystyle(x_{truck} - x_{bin})^2 + (y_{truck} - y_{bin})^2}$$
+The truck mote has an infinite trash capacity and empties the bin's filling level when requested. Upon the receiving of the \texttt{ALERT} message, the truck will fetch the bin's coordinates and will start a \texttt{TimerTruck} to simulate the trip towards to the bin. \\ Furthermore, it sets its \texttt{truckBusy} flag to true, in order to ignore other incoming \texttt{ALERT} messages from different bins, as the truck cannot simultaneously travel towards two different locations. \\ \\
+The travel time used in the timer is defined as
+\begin{equation} \label{xd}
+	t=\alpha_{truck\rightarrow bin}\sqrt{\left(x_{truck} - x_{bin}\right)^2 + \left(y_{truck} - y_{bin}\right)^2}
+\end{equation}
 where the multiplicative constant is defined in the header file and is set to 30.  This is needed to differentiate the truck travel time from the trash transfer time between bins in neighbor mode, as we will illustrate later. \\\\
-When the timer is fired, the mote will send a \texttt{TRUCK} message to the requesting bin and refresh its coordinates with the ones of the bin.\\Furthermore, if the truck is travelling towards a bin, it will set its \texttt{truckBusy} flag to true, such that other \texttt{ALERT} messages from different bins will be dropped.
+When the timer is fired, the mote will send a \texttt{TRUCK} message to the requesting bin and refresh its coordinates with the ones of the bin. Upon the message's arrival, the bin will empty its filling level and send an ACK.
 \subsection{Neighbor mode}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu lobortis elementum nibh tellus molestie nunc. Faucibus nisl tincidunt eget nullam. Nisl rhoncus mattis rhoncus urna neque viverra justo. Sodales neque sodales ut etiam. Eu non diam phasellus vestibulum lorem sed risus ultricies. Facilisis leo vel fringilla est. Pellentesque habitant morbi tristique senectus et netus. Ultricies lacus sed turpis tincidunt id aliquet. Bibendum neque egestas congue quisque egestas diam in arcu. Massa tincidunt dui ut ornare lectus. Ut lectus arcu bibendum at varius vel. Sodales neque sodales ut etiam. Commodo sed egestas egestas fringilla phasellus faucibus scelerisque. Morbi tristique senectus et netus. Integer eget aliquet nibh praesent tristique magna sit amet.
+If a bin is full it cannot store newly generated garbage. In order to solve the problem, the trash is redirected towards other bins with available capacity. A bin can also generate more garbage than its residual capacity (consider the case of 10 generated garbage to be thrown in a bin with a 99 filling level). The program handles this case by filling the bin completely and sending the remaining excess trash to other bins. \\ \\
+To locate the destination bin, the mote sends a \texttt{moveMsg} of type \texttt{MOVEREQ} to its neighbors and wait for two seconds (\texttt{TimerListeningMoveResp}). The message contains the mote's coordinates and the amount of excess trash to be thrown away. \\The receiving node, if in \texttt{NORMAL} mode, will set a \texttt{TimerMoveTrash} where time is provided by equation \eqref{xd}, where the multiplicative constant is replaced with $\displaystyle \alpha_{bin\rightarrow bin} = 2$. \\As noted earlier, this constant is much smaller to better modelize a real network (as the garbage truck might encounter traffic on its way, or be very far away from the motes).\\\\
+The neighbors will then send a \texttt{MOVERESP} type message containing their coordinates. When the receiving window expires, the requesting bin will collect all messages, compute neighbor distances, and send the excess trash to the closest one with a \texttt{MOVETRASH} message. If no neighbor replies, the trash is deleted.
 \section{Simulation and results}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu lobortis elementum nibh tellus molestie nunc. Faucibus nisl tincidunt eget nullam. Nisl rhoncus mattis rhoncus urna neque viverra justo. Sodales neque sodales ut etiam. Eu non diam phasellus vestibulum lorem sed risus ultricies. Facilisis leo vel fringilla est. Pellentesque habitant morbi tristique senectus et netus. Ultricies lacus sed turpis tincidunt id aliquet. Bibendum neque egestas congue quisque egestas diam in arcu. Massa tincidunt dui ut ornare lectus. Ut lectus arcu bibendum at varius vel. Sodales neque sodales ut etiam. Commodo sed egestas egestas fringilla phasellus faucibus scelerisque. Morbi tristique senectus et netus. Integer eget aliquet nibh praesent tristique magna sit amet.
+Descrivere inoltro seriale e mettere qualche bella figurella.
 \end{document}
