@@ -43,14 +43,14 @@ The \texttt{alertMsg} type is defined in the header file, and it contains the mo
 The truck mote has an infinite trash capacity and empties the bin's filling level when requested. Upon the receiving of the \texttt{ALERT} message, the truck will fetch the bin's coordinates and will start a \texttt{TimerTruck} to simulate the trip towards to the bin. \\ Furthermore, it sets its \texttt{truckBusy} flag to true, in order to ignore other incoming \texttt{ALERT} messages from different bins, as the truck cannot simultaneously travel towards two different locations. \\ \\
 The travel time used in the timer is defined as
 \begin{equation} \label{xd}
-	t=\alpha_{truck\rightarrow bin}\sqrt{\left(x_{truck} - x_{bin}\right)^2 + \left(y_{truck} - y_{bin}\right)^2}
+	t=\alpha_{truck\rightarrow bin}\sqrt{\left(x_{mote2} - x_{mote1}\right)^2 + \left(y_{mote2} - y_{mote1}\right)^2}
 \end{equation}
 where the multiplicative constant is defined in the header file and is set to 30.  This is needed to differentiate the truck travel time from the trash transfer time between bins in neighbor mode, as we will illustrate later. \\\\
 When the timer is fired, the mote will send a \texttt{TRUCK} message to the requesting bin and refresh its coordinates with the ones of the bin. Upon the message's arrival, the bin will empty its filling level and send an ACK.
 \subsection{Neighbor mode}
 If a bin is full it cannot store newly generated garbage. In order to solve the problem, the trash is redirected towards other bins with available capacity. A bin can also generate more garbage than its residual capacity (consider the case of 10 generated garbage to be thrown in a bin with a 99 filling level). The program handles this case by filling the bin completely and sending the remaining excess trash to other bins. \\ \\
 To locate the destination bin, the mote sends a \texttt{moveMsg} of type \texttt{MOVEREQ} to its neighbors and wait for two seconds (\texttt{TimerListeningMoveResp}). The message contains the mote's coordinates and the amount of excess trash to be thrown away. \\The receiving node, if in \texttt{NORMAL} mode, will set a \texttt{TimerMoveTrash} where time is provided by equation \eqref{xd}, where the multiplicative constant is replaced with $\displaystyle \alpha_{bin\rightarrow bin} = 2$. \\As noted earlier, this constant is much smaller to better modelize a real network (as the garbage truck might encounter traffic on its way, or be very far away from the motes).\\\\
-The neighbors will then send a \texttt{MOVERESP} type message containing their coordinates. When the receiving window expires, the requesting bin will collect all messages, compute neighbor distances, and send the excess trash to the closest one with a \texttt{MOVETRASH} message. If no neighbor replies, the trash is deleted.
+The neighbors will then send a \texttt{MOVERESP} type message containing their coordinates. When the receiving window expires, the requesting bin will collect all messages, compute neighbor distances, and send the excess trash to the closest one with a \texttt{MOVETRASH} message. If no neighbor replies, the excess trash is deleted.
 \section{Simulation and results}
 Descrivere inoltro seriale e mettere qualche bella figurella.
 \end{document}
