@@ -37,7 +37,7 @@ module sendAckC {
 
 implementation {
 
-	uint8_t counter=0;
+	uint8_t counter;
 	uint8_t rec_id;
 	uint16_t rnd;
 	message_t packet;
@@ -240,16 +240,17 @@ implementation {
 			dbg("radio","Radio on!\n");
 
 			mote.positionX= call Random.rand16() % 100 + 1;
-			mote.positionY=call Random.rand8() % 100 + 1;//TODO rand8 doesn't exist, only rand16/rand32
+			mote.positionY=call Random.rand16() % 100 + 1;
 			mote.trash=0;
 			mote.excessTrash=0;
+			counter=0;
 
 			if(TOS_NODE_ID==8) {
-				dbg("role","I'm the truck: position x %d",mote.positionX," position y %d",mote.positionY);
+				dbg("role","I'm  the truck: position x %d position y %d \n",mote.positionX,mote.positionY);
 			}
 
 			else {
-				dbg("role","I'm node %d",TOS_NODE_ID,": position x %d",mote.positionX," position y %d",mote.positionY);
+				dbg("role","I'm node %d: position x %d position y %d \n",TOS_NODE_ID,mote.positionX, mote.positionY);
 				rnd=(call Random.rand16() % (30000-1000)) + 1000;
 				call TimerTrashThrown.startOneShot(rnd);
 			}
@@ -267,24 +268,26 @@ implementation {
 	//***************** MilliTimer interfaces ********************//
 	event void TimerTrashThrown.fired() {
 
-		tempFilling=call Random.rand8() % 10 + 1;
+		tempFilling=call Random.rand16() % 10 + 1;
 
-		if(mote.trash<85) {
+		if((mote.trash+tempFilling)<85) {
 			//normal status
 			mote.trash=mote.trash+tempFilling;
-			dbg("role","I'm node %d",TOS_NODE_ID,": trash quantity %d",mote.trash);
+			dbg("role","I'm node %d: trash quantity %d \n",TOS_NODE_ID, mote.trash);
+			//dbg("role","HERE <85 alertMode %d\n", alertMode);
 		}
 
-		else if(mote.trash<100) {
+		else if((mote.trash+tempFilling)<100) {
 			// alert mode
+			//dbg("role","HERE <100 alertMode %d\n", alertMode);
 			if((100 - mote.trash) >= tempFilling ){ //spare capacity grater than new trash generated: collect it
 				mote.trash=mote.trash+tempFilling;
-				dbg("role","I'm node %d",TOS_NODE_ID,": trash quantity %d (alert mode)",mote.trash);
+				dbg("role","I'm node %d: trash quantity %d (alert mode) \n",TOS_NODE_ID,mote.trash);
 			}
 			else{//fill completely the bin, store in excessTrash garbage not collected
 				mote.excessTrash=mote.excessTrash+(tempFilling-(100 - mote.trash));
 				mote.trash=100; 
-				dbg("role","I'm node %d",TOS_NODE_ID,": trash quantity %d ",mote.trash, "(alert mode) excess trash %d", mote.excessTrash);
+				dbg("role","I'm node %d: trash quantity %d (alert mode) excess trash %d \n",TOS_NODE_ID, mote.trash, mote.excessTrash);
 			}
 
 			if (alertMode==FALSE){//considero il caso in cui, se già in alert mode, viene generata nuova spazzatura
@@ -297,7 +300,7 @@ implementation {
 		else {
 			//neighbor mode
 			mote.excessTrash=mote.excessTrash+tempFilling;
-			dbg("role","I'm node %d",TOS_NODE_ID,": trash quantity %d ",mote.trash, "(neighbor mode) excess trash %d", mote.excessTrash);
+			dbg("role","I'm node %d: trash quantity %d (neighbor mode) excess trash %d \n",TOS_NODE_ID,mote.trash, mote.excessTrash);
 			neighborMode=TRUE;
 			post sendMoveMsg();
 		}
@@ -343,7 +346,7 @@ implementation {
 
 		else{//no responses received 
 
-			dbg("role","I'm node %d",TOS_NODE_ID,": trash quantity %d ",mote.trash, "(alert mode) no neighbor replies and excess trash %d", mote.excessTrash, "has been deleted");
+			dbg("role","I'm node %d: trash quantity %d (alert mode) no neighbor replies and excess trash %d",TOS_NODE_ID,mote.trash, mote.excessTrash, "has been deleted \n");
 			mote.excessTrash=0;
 		}
 
@@ -416,10 +419,10 @@ implementation {
 
 		//check the condition on this if: if i receive a truck msg ad I am the destination of this pkt, empty the bin
 		if (len == sizeof(truckMsg) && TOS_NODE_ID==(call AMPacket.destination( buf ))) {
+			truckMsg* mess=(truckMsg*)payload;
 			mote.trash=0;
 			alertMode=FALSE;
 			call TimerAlert.stop(); //stop sending periodic alert msg 
-			truckMsg * mess=(truckMsg*)payload;//TODO cannot find any mistakes
 			dbg("radio_rec","Message received at time %s \n", sim_time_string());
 			dbg("radio_pack",">>>Pack \n \t Payload length %hhu \n", call Packet.payloadLength( buf ) );
 			dbg_clear("radio_pack","\t Source: %hhu \n", call AMPacket.source( buf ) );
