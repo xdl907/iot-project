@@ -27,6 +27,10 @@ typedef nx_struct my_msg3 {
 	nx_uint8_t node_ID;
 } alertMsg;
 
+typedef nx_struct my_msg4 {
+    nx_uint16_t=val;
+} serialMsg;
+
 #define ALERT 1
 #define TRUCK 2 
 #define MOVEREQ 3
