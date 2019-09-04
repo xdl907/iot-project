@@ -38,6 +38,8 @@ implementation {
   App.AMPacket -> AMSenderC;
   App.Packet -> AMSenderC;
   App.PacketAcknowledgements->ActiveMessageC;
+  App.PacketSF -> SerialActiveMessageC //new
+  App.AMSendSF -> SerialActiveMessageC.AMSend[AM_SERIAL_MSG] // new
   
   //Timer interface
   App.TimerTruck -> Timer1;
