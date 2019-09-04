@@ -36,7 +36,8 @@ typedef nx_struct my_msg3 {
 #define ALFABINBIN 2
 
 enum{
-    AM_MY_MSG=6
+    AM_MY_MSG=6,
+    AM_SERIAL_MSG=0x89,
 };
 
 #endif
