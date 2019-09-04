@@ -9,6 +9,7 @@
 #include "sendAck.h"
 #include "Timer.h"
 #include <time.h>
+#include <math.h>
 
 module sendAckC {
 
@@ -46,9 +47,11 @@ implementation {
 	task void sendAlertMsg();
 	task void sendMoveMsg();
 
+	int16_t dist1;
+	int16_t dist2;
 	uint8_t i=0;
 	uint8_t location=0;
-	uint8_t timeT=0;
+	uint16_t timeT=0;
 	uint8_t alertMsgSourceID;
 	uint8_t moveReqMsgSourceID;
 	uint8_t tempFilling=0;
@@ -63,6 +66,7 @@ implementation {
 	bool busyTruck=FALSE;
 	bool isListeningMoveResp=FALSE;
 	bool isDeliveringExcessGarbage=FALSE;
+	bool busy=FALSE;
 
 	struct node_t {
 		uint8_t positionX;
@@ -73,8 +77,8 @@ implementation {
 
 
 	struct neigh_t {
-	uint8_t positionX;
-	uint8_t positionY;
+		uint8_t positionX;
+		uint8_t positionY;
 	} neighborPosition[4]; //max # of neighbors for this topo is 4 ;
 
 	//srand (time(NULL));
@@ -96,6 +100,7 @@ implementation {
 		//8 is the tos node id of the truck
 		if(call AMSend.send(8,&packet,sizeof(alertMsg)) == SUCCESS) {
 			//TODO check these dbg
+			busy=TRUE;
 			dbg("radio_send", "Packet passed to lower layer successfully!\n");
 			dbg("radio_pack",">>>Pack\n \t Payload length %hhu \n", call Packet.payloadLength( &packet ) );
 			dbg_clear("radio_pack","\t Source: %hhu \n ", call AMPacket.source( &packet ) );
@@ -168,7 +173,8 @@ implementation {
 					dbg_clear("radio_send", "\n ");
 					dbg_clear("radio_pack", "\n");
 				}
-
+				mote.excess_trash=0;
+				moveRespCounter=0;
 			}
 
 			else { //send move request in broadcast
@@ -292,7 +298,7 @@ implementation {
 
 			if (alertMode==FALSE){//considero il caso in cui, se già in alert mode, viene generata nuova spazzatura
 				alertMode=TRUE;
-				call TimerAlert.startPeriodic(10000); //10 secondi
+				call TimerAlert.startPeriodic(30000); //10 secondi
 			}
 			
 		}
@@ -328,8 +334,11 @@ implementation {
 
 		if(moveRespCounter != 0){ //if I have received some move responses from neighbors 
 
-			for(i=0;i<moveRespCounter;i++) //compute distances from bin that have replied
-				neighborDistance[i]=sqrt((mote.positionX-neighborPosition[i].positionX )*(mote.positionX-neighborPosition[i].positionX)+(mote.positionY-neighborPosition[i].positionY)*(mote.positionY-neighborPosition[i].positionY));
+			for(i=0;i<moveRespCounter;i++) { //compute distances from bin that have replied
+				dist1 = pow((mote.positionX)-neighborPosition[i].positionX,2);
+				dist2 = pow((mote.positionY)-neighborPosition[i].positionY,2);
+				neighborDistance[i]=sqrt(dist1+dist2);
+			}
 			//compute min distance
 			minimum = neighborDistance[0];
 			for (i = 1; i < moveRespCounter; i++)
@@ -355,6 +364,11 @@ implementation {
 
 	//********************* AMSend interface ****************//
 	event void AMSend.sendDone(message_t* buf,error_t err) {
+
+		dbg("role", "HERE sendDone");
+
+		if(&packet==buf)
+			busy=FALSE;
 
 		if(&packet == buf && err == SUCCESS ) {
 			dbg("radio_send", "Packet sent...");
@@ -393,13 +407,19 @@ implementation {
 	//***************************** Receive interface *****************//
 	event message_t* Receive.receive(message_t* buf,void* payload, uint8_t len) {
 
+		dbg("role","HERE receive interface \n");
+
 		if (len == sizeof(alertMsg) && TOS_NODE_ID==8 && busyTruck==FALSE){//I receive an alert msg I am the truck and i'm not busy
 			alertMsg* mess=(alertMsg*)payload;
 			busyTruck=TRUE;
 			truckDestX=mess->coord_X;
 			truckDestY=mess->coord_Y;
-			timeT=ALFABINTRUCK*sqrt((mote.positionX-truckDestX)*(mote.positionX-truckDestX)+(mote.positionY-truckDestY)*(mote.positionY-truckDestY));//compute tTruck
+			dist1 = pow((mote.positionX)-truckDestX,2);
+			dist2 = pow((mote.positionY)-truckDestY,2);
+			timeT=ALFABINTRUCK*sqrt(dist1+dist2);//compute tTruck
+			dbg("role"," timer %d\n",timeT);
 			call TimerTruck.startOneShot(timeT);
+			dbg("role","timer started \n");
 			alertMsgSourceID=call AMPacket.source( buf );//check this, needed to store the node id of the sender bin of alert msg and used in sendTruckMsg
 		
 			dbg("radio_rec","Message received at time %s \n", sim_time_string());
@@ -422,6 +442,8 @@ implementation {
 			truckMsg* mess=(truckMsg*)payload;
 			mote.trash=0;
 			alertMode=FALSE;
+			neighborMode=FALSE;
+			moveRespCounter=0; 
 			call TimerAlert.stop(); //stop sending periodic alert msg 
 			dbg("radio_rec","Message received at time %s \n", sim_time_string());
 			dbg("radio_pack",">>>Pack \n \t Payload length %hhu \n", call Packet.payloadLength( buf ) );
@@ -440,8 +462,10 @@ implementation {
 			moveMsg* mess=(moveMsg*)payload;
 
 			if(mess->msg_type == MOVEREQ){
-
-				timeT=ALFABINBIN*sqrt((mote.positionX-mess->pos_X)*(mote.positionX-mess->pos_X)+(mote.positionY-mess->pos_Y)*(mote.positionY-mess->pos_Y));//compute tBin
+				dist1 = pow((mote.positionX)-truckDestX,2);
+				dist2 = pow((mote.positionY)-truckDestY,2);
+				timeT=ALFABINBIN*sqrt(dist1+dist2);
+				dbg("role","timer %d\n",timeT);
 				call TimerMoveTrash.startOneShot(timeT); // send a move resp after tBin time
 				moveReqMsgSourceID=call AMPacket.source( buf ); //store the tos id of the mote which has sent the request
 
@@ -490,8 +514,11 @@ implementation {
  				//store position of neighbor that has replied 
 				neighborPosition[moveRespCounter].positionX=mess->pos_X; 
 				neighborPosition[moveRespCounter].positionY=mess->pos_Y;
+				dbg("role", "neighborPosition[%d].positionX=%d\n",moveRespCounter, neighborPosition[moveRespCounter].positionX);
+				dbg("role", "neighborPosition[%d].positionY=%d\n",moveRespCounter, neighborPosition[moveRespCounter].positionY);
 				//store MOVERESP sender tosID 
-				neighborID[moveRespCounter]= (call AMPacket.source( buf )); 
+				neighborID[moveRespCounter]= (call AMPacket.source( buf ));
+				dbg("role", "neighborID[%d]=%d\n",moveRespCounter, neighborID[moveRespCounter]); 
 				moveRespCounter++;
 
 				dbg("radio_rec","Message received at time %s \n", sim_time_string());
