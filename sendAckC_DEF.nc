@@ -17,11 +17,13 @@ module sendAckC {
 	uses {
 		interface Boot; //always here and it's the starting point
 		//interfaces for communications
+		interface PacketSF
 		interface AMPacket; 
 		interface Packet;
 		interface PacketAcknowledgements;
 		interface AMSend;
-
+		interface AMSendSF;
+		interface SerialControl;
 		interface SplitControl;
 		interface Receive;
 		interface Random;
@@ -270,7 +272,9 @@ implementation {
 	}
 
 	event void SplitControl.stopDone(error_t err) {}
-
+	event void SerialControl.startDone(error_t err) {}
+	event void SerialControl.stopDone(error_t err) {}
+    
 	//***************** MilliTimer interfaces ********************//
 	event void TimerTrashThrown.fired() {
 
