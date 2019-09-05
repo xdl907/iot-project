@@ -15,7 +15,7 @@ implementation {
   components new AMSenderC(AM_MY_MSG);
   components new AMReceiverC(AM_MY_MSG);
   components ActiveMessageC;
-  components SerialActiveMessageC as AM; //new
+  components SerialActiveMessageC as AM;
   components new TimerMilliC() as Timer1;
   components new TimerMilliC() as Timer2;
   components new TimerMilliC() as Timer3;
@@ -32,14 +32,14 @@ implementation {
 
   //Radio Control
   App.SplitControl -> ActiveMessageC;
-  App.SerialControl -> AM; //new
+  App.Control -> AM;
   
   //Interfaces to access package fields
   App.AMPacket -> AMSenderC;
   App.Packet -> AMSenderC;
   App.PacketAcknowledgements->ActiveMessageC;
-  App.PacketSF -> AM; //new
-  App.AMSendSF -> AM.AMSend[AM_SERIAL_MSG]; // new
+  App.PacketSF -> AM;
+  App.AMSendSF -> AM.AMSend[AM_MY_MSG4];
   
   //Timer interface
   App.TimerTruck -> Timer1;
