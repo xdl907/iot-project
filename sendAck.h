@@ -1,7 +1,3 @@
-/**
- *  @author Alessandro Petocchi, Giuseppe Leone
- */
-
 #ifndef SENDACK_H
 #define SENDACK_H
 
@@ -28,7 +24,7 @@ typedef nx_struct my_msg3 {
 } alertMsg;
 
 typedef nx_struct my_msg4 {
-    nx_uint16_t val;
+    	nx_uint16_t val;
 } serialMsg;
 
 #define ALERT 1
@@ -41,7 +37,7 @@ typedef nx_struct my_msg4 {
 
 enum{
     AM_MY_MSG=6,
-    AM_SERIAL_MSG=0x89,
+    AM_MY_MSG4=0x89,
 };
 
 #endif
