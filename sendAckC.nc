@@ -17,13 +17,13 @@ module sendAckC {
 	uses {
 		interface Boot; //always here and it's the starting point
 		//interfaces for communications
-		interface PacketSF;
+		interface Packet as PacketSF;
 		interface AMPacket; 
 		interface Packet;
 		interface PacketAcknowledgements;
 		interface AMSend;
-		interface AMSendSF;
-		interface Control;
+		interface AMSend as AMSendSF;
+		interface SplitControl as Control;
 		interface SplitControl;
 		interface Receive;
 		interface Random;
@@ -547,6 +547,10 @@ implementation {
 		return buf;
 
 
+	}
+	
+	event void AMSendSF.sendDone(message_t* bufPtr, error_t error) {
+		if (&packet == bufPtr) {}
 	}
 
 
