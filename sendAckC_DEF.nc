@@ -175,7 +175,7 @@ implementation {
 					dbg_clear("radio_send", "\n ");
 					dbg_clear("radio_pack", "\n");
 				}
-				mote.excess_trash=0;
+				mote.excessTrash=0;
 				moveRespCounter=0;
 			}
 
