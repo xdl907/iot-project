@@ -1,13 +1,13 @@
 COMPONENT=sendAckAppC
-BUILD_EXTRA_DEPS += sendAck.class
-CLEAN_EXTRA = *.class sendAckMsg.java
+BUILD_EXTRA_DEPS += SendAck.class
+CLEAN_EXTRA = *.class SendAckMsg.java
 
 CFLAGS += -I$(TOSDIR)/lib/T2Hack
 
-sendAck.class: $(wildcard *.java) sendAckMsg.java
+SendAck.class: $(wildcard *.java) SendAckMsg.java
 	javac *.java
 
-sendAckMsg.java:
-	mig java -target=null $(CFLAGS) -java-classname=sendAckMsg sendAck.h my_msg4 -o $@
+SendAckMsg.java:
+	mig java -target=null $(CFLAGS) -java-classname=SendAckMsg sendAck.h my_msg4 -o $@
 
 include $(MAKERULES)
