@@ -51,7 +51,7 @@ public class SendAck implements MessageListener {
       System.out.println(id + ": Truck arrived and emptied bin");
     }
     else {
-      System.out.println(id + ": Neighbor delivered " + trash + "excess trash");
+      System.out.println(id + ": Sending" + trash + "excess trash to neighbor");
     }
   }
 
