@@ -45,6 +45,8 @@ implementation {
 	uint16_t rnd;
 	message_t packet, packetSF;
 
+	serialMsg* msg;
+
 	task void sendTruckMsg();
 	task void sendAlertMsg();
 	task void sendMoveMsg();
@@ -55,7 +57,7 @@ implementation {
 	uint8_t i=0;
 	uint8_t location=0;
 	uint16_t timeT=0;
-	uint8_t alertMsgSourceID;
+	uint8_t fullBinID;
 	uint8_t moveReqMsgSourceID;
 	uint8_t tempFilling=0;
 	uint8_t truckDestX;
@@ -124,14 +126,15 @@ implementation {
 	//****************** Task send truck message *****************//
 	task void sendTruckMsg() {
 
+
 		truckMsg* mess=(truckMsg*)(call Packet.getPayload(&packet,sizeof(truckMsg)));
 		mess->msg_type = TRUCK;
 		mess->msg_id = counter++;;
 
-		dbg("radio_send", "Send a truck message to node at time %s \n", sim_time_string());
+		dbg("radio_send", "Send a truck message to node %d at time %s \n", fullBinID ,sim_time_string());
 		call PacketAcknowledgements.requestAck( &packet );
 
-		if(call AMSend.send(alertMsgSourceID,&packet,sizeof(truckMsg)) == SUCCESS) {
+		if(call AMSend.send(fullBinID,&packet,sizeof(truckMsg)) == SUCCESS) {
 			dbg("radio_send", "Packet passed to lower layer successfully!\n");
 			dbg("radio_pack",">>>Pack\n \t Payload length %hhu \n", call Packet.payloadLength( &packet ) );
 			dbg_clear("radio_pack","\t Source: %hhu \n ", call AMPacket.source( &packet ) );
@@ -144,13 +147,15 @@ implementation {
 			dbg_clear("radio_pack", "\n");
 		}
 		
-		serialMsg* msg=(serialMsg*)(call Packet.getPayload(&packetSF,sizeof(serialMsg)));
-		if (msg == NULL) {return 0;}
-		if (call PacketSF.maxPayloadLength() < sizeof(serialMsg)) {return 0;}		
-		sfpayload = (TOS_NODE_ID << 8);  
-		msg->sample_value = sfpayload;
+
+		msg=(serialMsg*)(call Packet.getPayload(&packetSF,sizeof(serialMsg)));
+		if (msg == NULL) {return;}
+		if (call PacketSF.maxPayloadLength() < sizeof(serialMsg)) {return;}		
+		sfpayload = 0;//TODO fix this part 
+		dbg("role","sfpayload %d\n",sfpayload); 
+		msg->sample_value = 0;
 		if (call AMSendSF.send(AM_BROADCAST_ADDR, &packetSF, sizeof(serialMsg)) == SUCCESS) {
-			//dbg("init","%hu: Packet sent to SF...\n", id)
+			dbg("role","%hu: truck packet sent to SF content %d\n",msg->sample_value);
 		}
 
 	}
@@ -188,17 +193,19 @@ implementation {
 				moveRespCounter=0;
 				
 				//TODO:TEST AND DEBUG (serial transmission of sent excess trash)
-				serialMsg* msg=(serialMsg*)(call Packet.getPayload(&packetSF,sizeof(serialMsg)));
-				if (msg == NULL) {return 0;}
-				if (call PacketSF.maxPayloadLength() < sizeof(serialMsg)) {
-					return 0;
-				}
-				sfpayload = (TOS_NODE_ID << 8) | mote.excessTrash;  
+				msg=(serialMsg*)(call Packet.getPayload(&packetSF,sizeof(serialMsg)));
+				if (msg == NULL) {return ;}
+				if (call PacketSF.maxPayloadLength() < sizeof(serialMsg)) {return;}
+
+				sfpayload = 1;  //TODO fix this part 
 				msg->sample_value = sfpayload;
-				if (call AMSendSF.send(AM_BROADCAST_ADDR, &packetSF, sizeof(serialMsg)) == SUCCESS) {
-					//dbg("init","%hu: Packet sent to SF...\n", id);
+
+				if (call AMSendSF.send(AM_BROADCAST_ADDR, &packetSF, sizeof(serialMsg)) == SUCCESS){
+					dbg("role","Packet sent to SF...\n");
 				}
+
 				mote.excessTrash=0;
+			}
 
 			else { //send move request in broadcast
 				mess->msg_type = MOVEREQ;
@@ -227,6 +234,8 @@ implementation {
 			}
 
 		}
+
+		
 
 		else if(alertMode==FALSE){ //reply with move response if I am in normal mode
 			mess->msg_type = MOVERESP;
@@ -258,7 +267,7 @@ implementation {
 
 
 	//***************** Boot interface ********************//
-	event void Boot.booted() {
+	event void Boot.booted() {	
 		dbg("boot","Application booted.\n");
 		call SplitControl.start(); //turn on the radio
 		//call Control.start();
@@ -306,33 +315,24 @@ implementation {
 			//normal status
 			mote.trash=mote.trash+tempFilling;
 			dbg("role","I'm node %d: trash quantity %d \n",TOS_NODE_ID, mote.trash);
-			//dbg("role","HERE <85 alertMode %d\n", alertMode);
 		}
 
 		else if((mote.trash+tempFilling)<100) {
-			// alert mode
-			//dbg("role","HERE <100 alertMode %d\n", alertMode);
-			if((100 - mote.trash) >= tempFilling ){ //spare capacity grater than new trash generated: collect it
+				// alert mode
 				mote.trash=mote.trash+tempFilling;
 				dbg("role","I'm node %d: trash quantity %d (alert mode) \n",TOS_NODE_ID,mote.trash);
-			}
-			else{//fill completely the bin, store in excessTrash garbage not collected
-				mote.excessTrash=mote.excessTrash+(tempFilling-(100 - mote.trash));
-				mote.trash=100; 
-				dbg("role","I'm node %d: trash quantity %d (alert mode) excess trash %d \n",TOS_NODE_ID, mote.trash, mote.excessTrash);
-			}
 
 			if (alertMode==FALSE){//considero il caso in cui, se già in alert mode, viene generata nuova spazzatura
 				alertMode=TRUE;
-				call TimerAlert.startPeriodic(30000); //10 secondi
+				call TimerAlert.startPeriodic(10000); //10 secondi
 			}
-			
 		}
 
 		else {
 			//neighbor mode
-			mote.excessTrash=mote.excessTrash+tempFilling;
-			dbg("role","I'm node %d: trash quantity %d (neighbor mode) excess trash %d \n",TOS_NODE_ID,mote.trash, mote.excessTrash);
+			mote.excessTrash=mote.excessTrash+((mote.trash+tempFilling)-100);
+			mote.trash=100;
+			dbg("role","I'm node %d: trash generated %d trash quantity %d (neighbor mode) excess trash %d \n",TOS_NODE_ID,tempFilling,mote.trash, mote.excessTrash);
 			neighborMode=TRUE;
 			post sendMoveMsg();
 		}
@@ -348,7 +348,7 @@ implementation {
 	}
 	
 	event void TimerAlert.fired() {
-		post sendAlertMsg(); // questo implementa l'invio periodico dei msg alert
+		post sendAlertMsg(); // periodic delivery of alert msg
 	}
 
 	event void TimerMoveTrash.fired() {
@@ -358,40 +358,43 @@ implementation {
 	event void TimerListeningMoveResp.fired() {
 		isListeningMoveResp=FALSE; //when timer fires, the listening window for move responses closes
 
-		if(moveRespCounter != 0){ //if I have received some move responses from neighbors 
+		if(neighborMode==TRUE){
 
-			for(i=0;i<moveRespCounter;i++) { //compute distances from bin that have replied
-				dist1 = pow((mote.positionX)-neighborPosition[i].positionX,2);
-				dist2 = pow((mote.positionY)-neighborPosition[i].positionY,2);
-				neighborDistance[i]=sqrt(dist1+dist2);
-			}
-			//compute min distance
-			minimum = neighborDistance[0];
-			for (i = 1; i < moveRespCounter; i++)
-			{
-				if (neighborDistance[i] < minimum){
-					minimum = neighborDistance[i];
-					location = i+1;
+			if(moveRespCounter != 0 ){ //if I have received some move responses from neighbors 
+
+				for(i=0;i<moveRespCounter;i++) { //compute distances from bin that have replied
+					dist1 = pow((mote.positionX)-neighborPosition[i].positionX,2);
+					dist2 = pow((mote.positionY)-neighborPosition[i].positionY,2);
+					neighborDistance[i]=sqrt(dist1+dist2);
 				}
+				//compute min distance
+				minimum = neighborDistance[0];
+				for (i = 1; i < moveRespCounter; i++)
+				{
+					if (neighborDistance[i] < minimum){
+						minimum = neighborDistance[i];
+						location = i+1;
+					}
+				}
+
+				isDeliveringExcessGarbage=TRUE;
+				post sendMoveMsg();
 			}
 
-			isDeliveringExcessGarbage=TRUE;
-			post sendMoveMsg();
-		}
+			else{//no responses received 
 
-		else{//no responses received 
-
-			dbg("role","I'm node %d: trash quantity %d (alert mode) no neighbor replies and excess trash %d",TOS_NODE_ID,mote.trash, mote.excessTrash, "has been deleted \n");
-			mote.excessTrash=0;
-		}
+				dbg("role","I'm node %d: trash quantity %d (alert mode) no neighbor replies and excess trash %d",TOS_NODE_ID,mote.trash, mote.excessTrash, "has been deleted \n");
+				mote.excessTrash=0;
+			}
 
 		neighborMode=FALSE;
+		}
+
+		
 	}
 
 	//********************* AMSend interface ****************//
 	event void AMSend.sendDone(message_t* buf,error_t err) {
-
-		dbg("role", "HERE sendDone");
 
 		if(&packet==buf)
 			busy=FALSE;
@@ -415,13 +418,13 @@ implementation {
 			if ( call PacketAcknowledgements.wasAcked( buf ) ) {
 				dbg_clear("radio_ack", "and ack received");
 
-				if(busyTruck==TRUE)//busy truck false quando ricevo l'ack del truckmsg: non c'e bisogno di mettere tos==8 perche la condizione busyTruck==true ci può essere solo se sei il truck
+				if(busyTruck==TRUE)//ack of the truckmsg received: truck is now free to accept new requests
 					busyTruck=FALSE;
 				}
 
 			else { //ack is not received
-				dbg_clear("radio_ack", "but ack was not received");
-				if(TOS_NODE_ID==8) { //if I don't receive the ack of truck msg and and I'm the truck, deliver it again
+				if(TOS_NODE_ID==8) { //if I don't receive the ack related to the truck msg and and I'm the truck, it means that something went wrong and so deliver it again
+					dbg_clear("radio_ack", "but ack was not received");
 					post sendTruckMsg();
 				}
 			}
@@ -433,20 +436,20 @@ implementation {
 	//***************************** Receive interface *****************//
 	event message_t* Receive.receive(message_t* buf,void* payload, uint8_t len) {
 
-		dbg("role","HERE receive interface \n");
 
 		if (len == sizeof(alertMsg) && TOS_NODE_ID==8 && busyTruck==FALSE){//I receive an alert msg I am the truck and i'm not busy
 			alertMsg* mess=(alertMsg*)payload;
 			busyTruck=TRUE;
 			truckDestX=mess->coord_X;
 			truckDestY=mess->coord_Y;
+
 			dist1 = pow((mote.positionX)-truckDestX,2);
 			dist2 = pow((mote.positionY)-truckDestY,2);
 			timeT=ALFABINTRUCK*sqrt(dist1+dist2);//compute tTruck
-			dbg("role"," timer %d\n",timeT);
+
 			call TimerTruck.startOneShot(timeT);
-			dbg("role","timer started \n");
-			alertMsgSourceID=call AMPacket.source( buf );//check this, needed to store the node id of the sender bin of alert msg and used in sendTruckMsg
+
+			fullBinID=call AMPacket.source( buf );//needed to store the node id of the sender bin of alert msg (full bin) and used in sendTruckMsg
 		
 			dbg("radio_rec","Message received at time %s \n", sim_time_string());
 			dbg("radio_pack",">>>Pack \n \t Payload length %hhu \n", call Packet.payloadLength( buf ) );
@@ -463,15 +466,18 @@ implementation {
 			dbg_clear("radio_pack","\n");
 		}
 
-		//check the condition on this if: if i receive a truck msg ad I am the destination of this pkt, empty the bin
+		//if i receive a truck msg ad I am the destination of this pkt, empty the bin
 		if (len == sizeof(truckMsg) && TOS_NODE_ID==(call AMPacket.destination( buf ))) {
 			truckMsg* mess=(truckMsg*)payload;
+
 			mote.trash=0;
+			mote.excessTrash=0;
 			alertMode=FALSE;
 			neighborMode=FALSE;
 			moveRespCounter=0; 
 			call TimerAlert.stop(); //stop sending periodic alert msg 
-			dbg("radio_rec","Message received at time %s \n", sim_time_string());
+
+			dbg("radio_rec","Message received from the truck at time %s \n", sim_time_string());
 			dbg("radio_pack",">>>Pack \n \t Payload length %hhu \n", call Packet.payloadLength( buf ) );
 			dbg_clear("radio_pack","\t Source: %hhu \n", call AMPacket.source( buf ) );
 			dbg_clear("radio_pack","\t Destination: %hhu \n", call AMPacket.destination( buf ) );
