@@ -143,6 +143,15 @@ implementation {
 			dbg_clear("radio_send", "\n ");
 			dbg_clear("radio_pack", "\n");
 		}
+		
+		serialMsg* msg=(serialMsg*)(call Packet.getPayload(&packetSF,sizeof(serialMsg)));
+		if (msg == NULL) {return 0;}
+		if (call PacketSF.maxPayloadLength() < sizeof(serialMsg)) {return 0;}		
+		sfpayload = (TOS_NODE_ID << 8);  
+		msg->sample_value = sfpayload;
+		if (call AMSendSF.send(AM_BROADCAST_ADDR, &packetSF, sizeof(serialMsg)) == SUCCESS) {
+			//dbg("init","%hu: Packet sent to SF...\n", id)
+		}
 
 	}
 
@@ -327,15 +336,7 @@ implementation {
 			neighborMode=TRUE;
 			post sendMoveMsg();
 		}
-		//TODO: TEST AND DEBUG (send to serial interface a 16 bit number with ID and bin trash level, if not working use mod method)
-		serialMsg* msg=(serialMsg*)(call Packet.getPayload(&packetSF,sizeof(serialMsg)));
-		if (msg == NULL) {return 0;}
-		if (call PacketSF.maxPayloadLength() < sizeof(serialMsg)) {return 0;}		
-		sfpayload = (TOS_NODE_ID << 8) | mote.trash;  
-		msg->sample_value = sfpayload;
-		if (call AMSendSF.send(AM_BROADCAST_ADDR, &packetSF, sizeof(serialMsg)) == SUCCESS) {
-			//dbg("init","%hu: Packet sent to SF...\n", id)
-		}
+		
 		rnd=(call Random.rand16() % (30000-1000)) + 1000;
 		call TimerTrashThrown.startOneShot(rnd);
 	}
