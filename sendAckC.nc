@@ -182,12 +182,12 @@ implementation {
 				serialMsg* msg=(serialMsg*)(call Packet.getPayload(&packetSF,sizeof(serialMsg)));
 				if (msg == NULL) {return 0;}
 				if (call PacketSF.maxPayloadLength() < sizeof(serialMsg)) {
-				    return 0;
+					return 0;
 				}
 				sfpayload = (TOS_NODE_ID << 8) | mote.excessTrash;  
 				msg->sample_value = sfpayload;
 				if (call AMSendSF.send(AM_BROADCAST_ADDR, &packetSF, sizeof(serialMsg)) == SUCCESS) {
-				    //dbg("init","%hu: Packet sent to SF...\n", id);
+					//dbg("init","%hu: Packet sent to SF...\n", id);
 				}
 				mote.excessTrash=0;
 
@@ -334,7 +334,7 @@ implementation {
 		sfpayload = (TOS_NODE_ID << 8) | mote.trash;  
 		msg->sample_value = sfpayload;
 		if (call AMSendSF.send(AM_BROADCAST_ADDR, &packetSF, sizeof(serialMsg)) == SUCCESS) {
-		    //dbg("init","%hu: Packet sent to SF...\n", id)
+			//dbg("init","%hu: Packet sent to SF...\n", id)
 		}
 		rnd=(call Random.rand16() % (30000-1000)) + 1000;
 		call TimerTrashThrown.startOneShot(rnd);
@@ -347,7 +347,7 @@ implementation {
 	}
 	
 	event void TimerAlert.fired() {
-	    post sendAlertMsg(); // questo implementa l'invio periodico dei msg alert
+		post sendAlertMsg(); // questo implementa l'invio periodico dei msg alert
 	}
 
 	event void TimerMoveTrash.fired() {
