@@ -24,7 +24,7 @@ typedef nx_struct my_msg3 {
 } alertMsg;
 
 typedef nx_struct my_msg4 {
-    	nx_uint16_t val;
+    	nx_uint16_t sample_value;
 } serialMsg;
 
 #define ALERT 1
