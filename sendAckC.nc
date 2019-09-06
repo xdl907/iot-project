@@ -151,9 +151,9 @@ implementation {
 		msg=(serialMsg*)(call Packet.getPayload(&packetSF,sizeof(serialMsg)));
 		if (msg == NULL) {return;}
 		if (call PacketSF.maxPayloadLength() < sizeof(serialMsg)) {return;}		
-		sfpayload = 0;//TODO fix this part 
+		sfpayload = TOS_NODE_ID << 8 | 0;//TODO fix this part 
 		dbg("role","sfpayload %d\n",sfpayload); 
-		msg->sample_value = 0;
+		msg->sample_value = sfpayload;
 		if (call AMSendSF.send(AM_BROADCAST_ADDR, &packetSF, sizeof(serialMsg)) == SUCCESS) {
 			dbg("role","%hu: truck packet sent to SF content %d\n",msg->sample_value);
 		}
@@ -197,7 +197,7 @@ implementation {
 				if (msg == NULL) {return ;}
 				if (call PacketSF.maxPayloadLength() < sizeof(serialMsg)) {return;}
 
-				sfpayload = 1;  //TODO fix this part 
+				sfpayload = TOS_NODE_ID << 8 | mote.excessTrash;  //TODO fix this part 
 				msg->sample_value = sfpayload;
 
 				if (call AMSendSF.send(AM_BROADCAST_ADDR, &packetSF, sizeof(serialMsg)) == SUCCESS){
