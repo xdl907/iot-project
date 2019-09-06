@@ -43,10 +43,11 @@ public class SendAck implements MessageListener {
   public void messageReceived(int to, Message message) {
 
     SendAckMsg msg = (SendAckMsg)message;
-    short payload = msg.get_sample_value();
-    byte trash = payload >> 8;
-    byte id = payload & 0xFF;
-    if (trash == 0) {
+    int payload = msg.get_sample_value();
+    System.out.println(payload + "diocane");
+    int id = payload >> 8;
+    int trash = payload & 0xFF;
+    if (id == 8) {
       System.out.println(id + ": Truck arrived and emptied bin");
     }
     else {
