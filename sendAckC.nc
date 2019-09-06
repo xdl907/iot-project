@@ -334,9 +334,8 @@ implementation {
 		sfpayload = (TOS_NODE_ID << 8) | mote.trash;  
 		msg->sample_value = sfpayload;
 		if (call AMSendSF.send(AM_BROADCAST_ADDR, &packetSF, sizeof(serialMsg)) == SUCCESS) {
-		    //dbg("init","%hu: Packet sent to SF...\n", id);
-        }
-        
+		    //dbg("init","%hu: Packet sent to SF...\n", id)
+		}
 		rnd=(call Random.rand16() % (30000-1000)) + 1000;
 		call TimerTrashThrown.startOneShot(rnd);
 	}
