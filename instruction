@@ -9,6 +9,17 @@ go to the directory where files are located
 $ make micaz sim  #for compiling code of simulation
 $ python RunSimulationScript.py  #for running simulation and see dbg messages
 
+TOSSIMlive
+
+1. compile the tinyos program for simulation using the serial port, typing
+	make micaz sim-sf 
+2. open the serial forwarder on port 9001 typing
+	java net.tinyos.sf.SerialForwarder -comm sf@localhost:9001&
+3. run the java program that accepts messages from the serial port 9002
+	java SendAck -comm sf@localhost:9002
+4. run the python simulation
+	python RunSimulationScript.py
+
 
 
 
