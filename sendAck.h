@@ -32,7 +32,7 @@ typedef nx_struct my_msg4 {
 #define MOVEREQ 3
 #define MOVERESP 4 
 #define MOVETRASH 5
-#define ALFABINTRUCK 30
+#define ALFABINTRUCK 100
 #define ALFABINBIN 2
 
 enum{
