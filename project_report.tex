@@ -2,6 +2,8 @@
 \usepackage[margin=1.5in]{geometry}
 \usepackage{amsmath}
 \usepackage{fancyhdr}
+\usepackage{graphicx}
+\graphicspath{ {./} }
 %opening
 \pagestyle{fancy}
 \fancyhf{}
@@ -51,6 +53,17 @@ When the timer is fired, the mote will send a \texttt{TRUCK} message to the requ
 If a bin is full it cannot store newly generated garbage. In order to solve the problem, the trash is redirected towards other bins with available capacity. A bin can also generate more garbage than its residual capacity (consider the case of 10 generated garbage to be thrown in a bin with a 99 filling level). The program handles this case by filling the bin completely and sending the remaining excess trash to other bins. \\ \\
 To locate the destination bin, the mote sends a \texttt{moveMsg} of type \texttt{MOVEREQ} to its neighbors and wait for two seconds (\texttt{TimerListeningMoveResp}). The message contains the mote's coordinates and the amount of excess trash to be thrown away. \\The receiving node, if in \texttt{NORMAL} mode, will set a \texttt{TimerMoveTrash} where time is provided by equation \eqref{xd}, where the multiplicative constant is replaced with $\displaystyle \alpha_{bin\rightarrow bin} = 2$. \\As noted earlier, this constant is much smaller to better modelize a real network (as the garbage truck might encounter traffic on its way, or be very far away from the motes).\\\\
 The neighbors will then send a \texttt{MOVERESP} type message containing their coordinates. When the receiving window expires, the requesting bin will collect all messages, compute neighbor distances, and send the excess trash to the closest one with a \texttt{MOVETRASH} message. If no neighbor replies, the excess trash is deleted.
-\section{Simulation and results}
-Descrivere inoltro seriale e mettere qualche bella figurella.
+\section{Serial port communication}
+The program is able to send relevant messages to the serial port. A Java application was written in order to decode the messages and print them to the terminal.
+\subsection{Technical details}
+The serial port will receive two kinds of messages: the arrival of the truck at a bin and trash transfer to a neighbor, along with the excess trash value.
+\\The payload of the serial message is generated as such:
+\begin{itemize}
+	\item \textbf{Truck messages:} \texttt{sfpayload = TOS\_NODE\_ID << 8 | fullBinID}
+	\item \textbf{Neighbor messages:} = \texttt{sfpayload = TOS\_NODE\_ID << 8 | mote.excessTrash;}
+\end{itemize}
+where \texttt{<<} is the left bit shift operator and \texttt{|} is the bitwise \texttt{OR} operator.
+\\ \\Upon the receiving of the message, the Java application will fetch the payload by calling \texttt{get\_sample\_value()} and decode it into the two original values (right bit shift for the first eight bits and \texttt{AND} with \texttt{0xFF} for the last eight bits).
+\\ \\  \noindent If the ID in the payload is equal to 8 (the truck's \texttt{TOS\_NODE\_ID}), the application will print a message containing the ID of the emptied bin. If it is any other value (the IDs of the bins), it will print a message containing the value of excess trash sent to the neighbor node. \\ \\
+\includegraphics[width=\textwidth]{Cattura}
 \end{document}
