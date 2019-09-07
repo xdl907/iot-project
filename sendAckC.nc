@@ -147,7 +147,7 @@ implementation {
 			dbg_clear("radio_pack", "\n");
 		}
 		
-
+		//serial tx
 		msg=(serialMsg*)(call Packet.getPayload(&packetSF,sizeof(serialMsg)));
 		if (msg == NULL) {return;}
 		if (call PacketSF.maxPayloadLength() < sizeof(serialMsg)) {return;}		
@@ -190,7 +190,7 @@ implementation {
 					dbg_clear("radio_pack", "\n");
 				}
 				moveRespCounter=0;
-				
+				//serial tx
 				msg=(serialMsg*)(call Packet.getPayload(&packetSF,sizeof(serialMsg)));
 				if (msg == NULL) {return ;}
 				if (call PacketSF.maxPayloadLength() < sizeof(serialMsg)) {return;}
