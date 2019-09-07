@@ -152,10 +152,10 @@ implementation {
 		if (msg == NULL) {return;}
 		if (call PacketSF.maxPayloadLength() < sizeof(serialMsg)) {return;}		
 		sfpayload = TOS_NODE_ID << 8 | fullBinID;//TODO fix this part 
-		dbg("role","sfpayload %d\n",sfpayload); 
+		//dbg("role","sfpayload %d\n",sfpayload); 
 		msg->sample_value = sfpayload;
 		if (call AMSendSF.send(AM_BROADCAST_ADDR, &packetSF, sizeof(serialMsg)) == SUCCESS) {
-			dbg("role","%hu: truck packet sent to SF content %d\n",msg->sample_value);
+			dbg("role","Truck packet sent to SF...\n");
 		}
 
 	}
@@ -497,7 +497,7 @@ implementation {
 				dist1 = pow((mote.positionX)-truckDestX,2);
 				dist2 = pow((mote.positionY)-truckDestY,2);
 				timeT=ALFABINBIN*sqrt(dist1+dist2);
-				dbg("role","timer %d\n",timeT);
+				//dbg("role","timer %d\n",timeT);
 				call TimerMoveTrash.startOneShot(timeT); // send a move resp after tBin time
 				moveReqMsgSourceID=call AMPacket.source( buf ); //store the tos id of the mote which has sent the request
 
@@ -546,11 +546,11 @@ implementation {
  				//store position of neighbor that has replied 
 				neighborPosition[moveRespCounter].positionX=mess->pos_X; 
 				neighborPosition[moveRespCounter].positionY=mess->pos_Y;
-				dbg("role", "neighborPosition[%d].positionX=%d\n",moveRespCounter, neighborPosition[moveRespCounter].positionX);
-				dbg("role", "neighborPosition[%d].positionY=%d\n",moveRespCounter, neighborPosition[moveRespCounter].positionY);
+				//dbg("role", "neighborPosition[%d].positionX=%d\n",moveRespCounter, neighborPosition[moveRespCounter].positionX);
+				//dbg("role", "neighborPosition[%d].positionY=%d\n",moveRespCounter, neighborPosition[moveRespCounter].positionY);
 				//store MOVERESP sender tosID 
 				neighborID[moveRespCounter]= (call AMPacket.source( buf ));
-				dbg("role", "neighborID[%d]=%d\n",moveRespCounter, neighborID[moveRespCounter]); 
+				//dbg("role", "neighborID[%d]=%d\n",moveRespCounter, neighborID[moveRespCounter]); 
 				moveRespCounter++;
 
 				dbg("radio_rec","Message received at time %s \n", sim_time_string());
