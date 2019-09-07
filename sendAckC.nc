@@ -104,7 +104,7 @@ implementation {
 
 		//8 is the tos node id of the truck
 		if(call AMSend.send(8,&packet,sizeof(alertMsg)) == SUCCESS) {
-			//TODO check these dbg
+			//debug messages
 			busy=TRUE;
 			dbg("radio_send", "Packet passed to lower layer successfully!\n");
 			dbg("radio_pack",">>>Pack\n \t Payload length %hhu \n", call Packet.payloadLength( &packet ) );
@@ -151,7 +151,7 @@ implementation {
 		msg=(serialMsg*)(call Packet.getPayload(&packetSF,sizeof(serialMsg)));
 		if (msg == NULL) {return;}
 		if (call PacketSF.maxPayloadLength() < sizeof(serialMsg)) {return;}		
-		sfpayload = TOS_NODE_ID << 8 | fullBinID;//TODO fix this part 
+		sfpayload = TOS_NODE_ID << 8 | fullBinID;
 		//dbg("role","sfpayload %d\n",sfpayload); 
 		msg->sample_value = sfpayload;
 		if (call AMSendSF.send(AM_BROADCAST_ADDR, &packetSF, sizeof(serialMsg)) == SUCCESS) {
@@ -174,7 +174,6 @@ implementation {
 				mess->pos_Y=0;
 				mess->excess_trash=mote.excessTrash;
 			
-				//TODO ack per questo tipo di move msg??
 				dbg("radio_send", "Delivering excess trash to node at time %s \n", sim_time_string());
 
 				if(call AMSend.send(neighborID[location-1],&packet,sizeof(moveMsg)) == SUCCESS) {
@@ -192,12 +191,11 @@ implementation {
 				}
 				moveRespCounter=0;
 				
-				//TODO:TEST AND DEBUG (serial transmission of sent excess trash)
 				msg=(serialMsg*)(call Packet.getPayload(&packetSF,sizeof(serialMsg)));
 				if (msg == NULL) {return ;}
 				if (call PacketSF.maxPayloadLength() < sizeof(serialMsg)) {return;}
 
-				sfpayload = TOS_NODE_ID << 8 | mote.excessTrash;  //TODO fix this part 
+				sfpayload = TOS_NODE_ID << 8 | mote.excessTrash;
 				msg->sample_value = sfpayload;
 
 				if (call AMSendSF.send(AM_BROADCAST_ADDR, &packetSF, sizeof(serialMsg)) == SUCCESS){
