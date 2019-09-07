@@ -45,13 +45,12 @@ public class SendAck implements MessageListener {
     SendAckMsg msg = (SendAckMsg)message;
     int payload = msg.get_sample_value();
     System.out.println(payload + "diocane");
-    int id = payload >> 8;
-    int trash = payload & 0xFF;
+    int value = payload & 0xFF;
     if (id == 8) {
-      System.out.println(id + ": Truck arrived and emptied bin");
+      System.out.println(id + ": Truck arrived and emptied bin "+value);
     }
     else {
-      System.out.println(id + ": Sending" + trash + "excess trash to neighbor");
+      System.out.println(id + ": Sending" + value + "excess trash to neighbor");
     }
   }
 
