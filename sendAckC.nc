@@ -317,7 +317,7 @@ implementation {
 			dbg("role","I'm node %d: trash quantity %d \n",TOS_NODE_ID, mote.trash);
 		}
 
-		else if((mote.trash+tempFilling)<100) {
+		else if((mote.trash+tempFilling)<=100) {
 				// alert mode
 				mote.trash=mote.trash+tempFilling;
 				dbg("role","I'm node %d: trash quantity %d (alert mode) \n",TOS_NODE_ID,mote.trash);
