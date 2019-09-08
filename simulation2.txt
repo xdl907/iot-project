@@ -225,7 +225,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 0 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (7): Message received from the truck at time 0:2:54.162124608 
 DEBUG (7): >>>Pack 
  	 Payload length 3 
@@ -295,7 +295,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 1 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (4): Message received from the truck at time 0:3:22.182342488 
 DEBUG (4): >>>Pack 
  	 Payload length 3 
@@ -354,7 +354,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 2 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (2): Message received from the truck at time 0:3:37.473510734 
 DEBUG (2): >>>Pack 
  	 Payload length 3 
@@ -456,7 +456,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 3 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (5): Message received from the truck at time 0:4:40.972503654 
 DEBUG (5): >>>Pack 
  	 Payload length 3 
@@ -515,7 +515,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 4 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (1): Message received from the truck at time 0:4:51.594345069 
 DEBUG (1): >>>Pack 
  	 Payload length 3 
@@ -575,7 +575,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 5 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (6): Message received from the truck at time 0:5:2.173599213 
 DEBUG (6): >>>Pack 
  	 Payload length 3 
@@ -643,7 +643,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 6 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 clients 1, read 0, wrote 0
 DEBUG (3): Message received from the truck at time 0:5:26.312454198 
 DEBUG (3): >>>Pack 
@@ -714,7 +714,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 7 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (7): Message received from the truck at time 0:5:54.500793426 
 DEBUG (7): >>>Pack 
  	 Payload length 3 
@@ -789,7 +789,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 8 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (4): Message received from the truck at time 0:6:42.762954707 
 DEBUG (4): >>>Pack 
  	 Payload length 3 
@@ -877,7 +877,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 9 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (2): Message received from the truck at time 0:7:50.590118392 
 DEBUG (2): >>>Pack 
  	 Payload length 3 
@@ -959,7 +959,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 10 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (6): Message received from the truck at time 0:8:43.350631699 
 DEBUG (6): >>>Pack 
  	 Payload length 3 
@@ -1027,7 +1027,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 11 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (5): Message received from the truck at time 0:9:9.981567367 
 DEBUG (5): >>>Pack 
  	 Payload length 3 
@@ -1086,7 +1086,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 12 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (3): Message received from the truck at time 0:9:19.830154427 
 DEBUG (3): >>>Pack 
  	 Payload length 3 
@@ -1172,7 +1172,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 13 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (1): Message received from the truck at time 0:9:54.013061518 
 DEBUG (1): >>>Pack 
  	 Payload length 3 
@@ -1253,7 +1253,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 14 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (4): Message received from the truck at time 0:10:7.580169674 
 DEBUG (4): >>>Pack 
  	 Payload length 3 
@@ -1326,7 +1326,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 15 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (7): Message received from the truck at time 0:10:44.431091269 
 DEBUG (7): >>>Pack 
  	 Payload length 3 
@@ -1418,7 +1418,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 16 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (2): Message received from the truck at time 0:11:59.360321042 
 DEBUG (2): >>>Pack 
  	 Payload length 3 
@@ -1494,7 +1494,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 17 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (1): Message received from the truck at time 0:12:48.663406344 
 DEBUG (1): >>>Pack 
  	 Payload length 3 
@@ -1554,7 +1554,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 18 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (6): Message received from the truck at time 0:12:59.057159395 
 DEBUG (6): >>>Pack 
  	 Payload length 3 
@@ -1627,7 +1627,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 19 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (3): Message received from the truck at time 0:13:35.415496792 
 DEBUG (3): >>>Pack 
  	 Payload length 3 
@@ -1692,7 +1692,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 20 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (5): Message received from the truck at time 0:13:56.505432105 
 DEBUG (5): >>>Pack 
  	 Payload length 3 
@@ -1812,7 +1812,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 21 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (4): Message received from the truck at time 0:14:28.986694325 
 DEBUG (4): >>>Pack 
  	 Payload length 3 
@@ -1874,7 +1874,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 22 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (7): Message received from the truck at time 0:14:43.637390118 
 DEBUG (7): >>>Pack 
  	 Payload length 3 
@@ -1977,7 +1977,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 23 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (2): Message received from the truck at time 0:16:23.034637411 
 DEBUG (2): >>>Pack 
  	 Payload length 3 
@@ -2076,7 +2076,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 24 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (5): Message received from the truck at time 0:16:48.794570905 
 DEBUG (5): >>>Pack 
  	 Payload length 3 
@@ -2135,7 +2135,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 25 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (1): Message received from the truck at time 0:16:59.660980217 
 DEBUG (1): >>>Pack 
  	 Payload length 3 
@@ -2206,7 +2206,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 26 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (3): Message received from the truck at time 0:17:29.241577120 
 DEBUG (3): >>>Pack 
  	 Payload length 3 
@@ -2269,7 +2269,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 27 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (6): Message received from the truck at time 0:17:41.464920017 
 DEBUG (6): >>>Pack 
  	 Payload length 3 
@@ -2376,7 +2376,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 28 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (4): Message received from the truck at time 0:19:7.234695441 
 DEBUG (4): >>>Pack 
  	 Payload length 3 
@@ -2479,7 +2479,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 29 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (5): Message received from the truck at time 0:20:18.099853488 
 DEBUG (5): >>>Pack 
  	 Payload length 3 
@@ -2553,7 +2553,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 30 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (7): Message received from the truck at time 0:20:51.950134235 
 DEBUG (7): >>>Pack 
  	 Payload length 3 
@@ -2629,7 +2629,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 31 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (2): Message received from the truck at time 0:21:37.346282918 
 DEBUG (2): >>>Pack 
  	 Payload length 3 
@@ -2703,7 +2703,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 32 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (3): Message received from the truck at time 0:22:4.747558588 
 DEBUG (3): >>>Pack 
  	 Payload length 3 
@@ -2765,7 +2765,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 33 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (6): Message received from the truck at time 0:22:21.335830646 
 DEBUG (6): >>>Pack 
  	 Payload length 3 
@@ -2875,7 +2875,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 34 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (4): Message received from the truck at time 0:22:33.823089586 
 DEBUG (4): >>>Pack 
  	 Payload length 3 
@@ -2957,7 +2957,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 35 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (1): Message received from the truck at time 0:22:53.207382191 
 DEBUG (1): >>>Pack 
  	 Payload length 3 
@@ -3039,7 +3039,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 36 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (7): Message received from the truck at time 0:23:53.607635454 
 DEBUG (7): >>>Pack 
  	 Payload length 3 
@@ -3112,7 +3112,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 37 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (5): Message received from the truck at time 0:24:24.924331642 
 DEBUG (5): >>>Pack 
  	 Payload length 3 
@@ -3186,7 +3186,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 38 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (2): Message received from the truck at time 0:24:54.566879261 
 DEBUG (2): >>>Pack 
  	 Payload length 3 
@@ -3246,7 +3246,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 39 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (3): Message received from the truck at time 0:25:3.448806722 
 DEBUG (3): >>>Pack 
  	 Payload length 3 
@@ -3328,7 +3328,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 40 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (4): Message received from the truck at time 0:25:57.209899911 
 DEBUG (4): >>>Pack 
  	 Payload length 3 
@@ -3447,7 +3447,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 41 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (6): Message received from the truck at time 0:26:22.976715055 
 DEBUG (6): >>>Pack 
  	 Payload length 3 
@@ -3508,7 +3508,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 42 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (1): Message received from the truck at time 0:26:33.265930171 
 DEBUG (1): >>>Pack 
  	 Payload length 3 
@@ -3575,7 +3575,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 43 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (5): Message received from the truck at time 0:26:56.081451382 
 DEBUG (5): >>>Pack 
  	 Payload length 3 
@@ -3745,7 +3745,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 44 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (7): Message received from the truck at time 0:27:16.360778803 
 DEBUG (7): >>>Pack 
  	 Payload length 3 
@@ -3830,7 +3830,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 45 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (3): Message received from the truck at time 0:28:6.152587892 
 DEBUG (3): >>>Pack 
  	 Payload length 3 
@@ -3896,7 +3896,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 46 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (2): Message received from the truck at time 0:28:34.801528917 
 DEBUG (2): >>>Pack 
  	 Payload length 3 
@@ -4013,7 +4013,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 47 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (4): Message received from the truck at time 0:29:57.542633021 
 DEBUG (4): >>>Pack 
  	 Payload length 3 
@@ -4092,7 +4092,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 48 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (1): Message received from the truck at time 0:30:15.254241915 
 DEBUG (1): >>>Pack 
  	 Payload length 3 
@@ -4181,7 +4181,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 49 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (5): Message received from the truck at time 0:30:38.291625987 
 DEBUG (5): >>>Pack 
  	 Payload length 3 
@@ -4241,7 +4241,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 50 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (6): Message received from the truck at time 0:30:48.439239471 
 DEBUG (6): >>>Pack 
  	 Payload length 3 
@@ -4307,7 +4307,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 51 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (2): Message received from the truck at time 0:31:8.236007689 
 DEBUG (2): >>>Pack 
  	 Payload length 3 
@@ -4366,7 +4366,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 52 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (7): Message received from the truck at time 0:31:21.164566000 
 DEBUG (7): >>>Pack 
  	 Payload length 3 
@@ -4475,7 +4475,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 53 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (3): Message received from the truck at time 0:33:1.088043175 
 DEBUG (3): >>>Pack 
  	 Payload length 3 
@@ -4545,7 +4545,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 54 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (5): Message received from the truck at time 0:33:36.977340685 
 DEBUG (5): >>>Pack 
  	 Payload length 3 
@@ -4621,7 +4621,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 55 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (6): Message received from the truck at time 0:34:30.282653769 
 DEBUG (6): >>>Pack 
  	 Payload length 3 
@@ -4688,7 +4688,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 56 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (2): Message received from the truck at time 0:34:57.499374379 
 DEBUG (2): >>>Pack 
  	 Payload length 3 
@@ -4746,7 +4746,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 57 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (1): Message received from the truck at time 0:35:4.589523314 
 DEBUG (1): >>>Pack 
  	 Payload length 3 
@@ -4821,7 +4821,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 58 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (4): Message received from the truck at time 0:35:15.791610711 
 DEBUG (4): >>>Pack 
  	 Payload length 3 
@@ -4896,7 +4896,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 59 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (7): Message received from the truck at time 0:36:3.970001216 
 DEBUG (7): >>>Pack 
  	 Payload length 3 
@@ -5002,7 +5002,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 60 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (5): Message received from the truck at time 0:37:43.417999224 
 DEBUG (5): >>>Pack 
  	 Payload length 3 
@@ -5067,7 +5067,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 61 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (6): Message received from the truck at time 0:38:7.141418432 
 DEBUG (6): >>>Pack 
  	 Payload length 3 
@@ -5129,7 +5129,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 62 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (1): Message received from the truck at time 0:38:18.478012085 
 DEBUG (1): >>>Pack 
  	 Payload length 3 
@@ -5189,7 +5189,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 63 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (3): Message received from the truck at time 0:38:29.305969216 
 DEBUG (3): >>>Pack 
  	 Payload length 3 
@@ -5262,7 +5262,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 64 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (2): Message received from the truck at time 0:38:55.724014288 
 DEBUG (2): >>>Pack 
  	 Payload length 3 
@@ -5331,7 +5331,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 65 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (4): Message received from the truck at time 0:39:28.942001325 
 DEBUG (4): >>>Pack 
  	 Payload length 3 
@@ -5407,7 +5407,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 66 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (7): Message received from the truck at time 0:40:4.862838722 
 DEBUG (7): >>>Pack 
  	 Payload length 3 
@@ -5494,7 +5494,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 67 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (6): Message received from the truck at time 0:41:24.172393770 
 DEBUG (6): >>>Pack 
  	 Payload length 3 
@@ -5564,7 +5564,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 68 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (1): Message received from the truck at time 0:41:42.976806596 
 DEBUG (1): >>>Pack 
  	 Payload length 3 
@@ -5631,7 +5631,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 69 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (5): Message received from the truck at time 0:42:1.603317236 
 DEBUG (5): >>>Pack 
  	 Payload length 3 
@@ -5696,7 +5696,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 70 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (3): Message received from the truck at time 0:42:25.164184544 
 DEBUG (3): >>>Pack 
  	 Payload length 3 
@@ -5760,7 +5760,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 71 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (4): Message received from the truck at time 0:42:45.801239002 
 DEBUG (4): >>>Pack 
  	 Payload length 3 
@@ -5826,7 +5826,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 72 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (7): Message received from the truck at time 0:43:7.808181728 
 DEBUG (7): >>>Pack 
  	 Payload length 3 
@@ -5905,7 +5905,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 73 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (2): Message received from the truck at time 0:43:56.727066005 
 DEBUG (2): >>>Pack 
  	 Payload length 3 
@@ -6134,7 +6134,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 74 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (1): Message received from the truck at time 0:44:57.153579690 
 DEBUG (1): >>>Pack 
  	 Payload length 3 
@@ -6211,7 +6211,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 75 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (6): Message received from the truck at time 0:45:47.503097519 
 DEBUG (6): >>>Pack 
  	 Payload length 3 
@@ -6299,7 +6299,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 76 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (3): Message received from the truck at time 0:46:15.261810293 
 DEBUG (3): >>>Pack 
  	 Payload length 3 
@@ -6476,7 +6476,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 77 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (4): Message received from the truck at time 0:46:26.255187989 
 DEBUG (4): >>>Pack 
  	 Payload length 3 
@@ -6557,7 +6557,7 @@ DEBUG (5): >>>Pack
 
  
 DEBUG (5): Packet sent to SF...
-DEBUG (7): Message received at time 0:46:42.697189300 
+DEBUG (7): Move trash msg received at time 0:46:42.697189300 
 DEBUG (7): >>>Pack 
  	 Payload length 9 
 	 Source: 5 
@@ -6583,7 +6583,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 78 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (5): Message received from the truck at time 0:46:43.965209961 
 DEBUG (5): >>>Pack 
  	 Payload length 3 
@@ -6667,7 +6667,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 79 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (2): Message received from the truck at time 0:47:49.036331132 
 DEBUG (2): >>>Pack 
  	 Payload length 3 
@@ -6734,7 +6734,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 80 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (7): Message received from the truck at time 0:48:17.913970905 
 DEBUG (7): >>>Pack 
  	 Payload length 3 
@@ -6826,7 +6826,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 81 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (6): Message received from the truck at time 0:49:17.395462010 
 DEBUG (6): >>>Pack 
  	 Payload length 3 
@@ -6884,7 +6884,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 82 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (1): Message received from the truck at time 0:49:24.700057992 
 DEBUG (1): >>>Pack 
  	 Payload length 3 
@@ -6974,7 +6974,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 83 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (4): Message received from the truck at time 0:49:59.517593352 
 DEBUG (4): >>>Pack 
  	 Payload length 3 
@@ -7086,7 +7086,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 84 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (2): Message received from the truck at time 0:51:22.956527687 
 DEBUG (2): >>>Pack 
  	 Payload length 3 
@@ -7166,7 +7166,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 85 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (3): Message received from the truck at time 0:51:38.090530400 
 DEBUG (3): >>>Pack 
  	 Payload length 3 
@@ -7226,7 +7226,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 86 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (6): Message received from the truck at time 0:51:50.541000352 
 DEBUG (6): >>>Pack 
  	 Payload length 3 
@@ -7299,7 +7299,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 87 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (7): Message received from the truck at time 0:52:22.770416234 
 DEBUG (7): >>>Pack 
  	 Payload length 3 
@@ -7375,7 +7375,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 88 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (5): Message received from the truck at time 0:53:12.719589242 
 DEBUG (5): >>>Pack 
  	 Payload length 3 
@@ -7436,7 +7436,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 89 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (1): Message received from the truck at time 0:53:21.306533777 
 DEBUG (1): >>>Pack 
  	 Payload length 3 
@@ -7673,7 +7673,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 90 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (4): Message received from the truck at time 0:54:4.112930302 
 DEBUG (4): >>>Pack 
  	 Payload length 3 
@@ -7747,7 +7747,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 91 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (2): Message received from the truck at time 0:54:46.314590422 
 DEBUG (2): >>>Pack 
  	 Payload length 3 
@@ -7810,7 +7810,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 92 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (6): Message received from the truck at time 0:55:0.522064202 
 DEBUG (6): >>>Pack 
  	 Payload length 3 
@@ -7884,7 +7884,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 93 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (3): Message received from the truck at time 0:55:48.021194434 
 DEBUG (3): >>>Pack 
  	 Payload length 3 
@@ -7945,7 +7945,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 94 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (7): Message received from the truck at time 0:55:58.297821048 
 DEBUG (7): >>>Pack 
  	 Payload length 3 
@@ -8037,7 +8037,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 95 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (5): Message received from the truck at time 0:57:1.313766486 
 DEBUG (5): >>>Pack 
  	 Payload length 3 
@@ -8127,7 +8127,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 96 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (4): Message received from the truck at time 0:57:51.637130715 
 DEBUG (4): >>>Pack 
  	 Payload length 3 
@@ -8218,7 +8218,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 97 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (1): Message received from the truck at time 0:58:37.487792951 
 DEBUG (1): >>>Pack 
  	 Payload length 3 
@@ -8279,7 +8279,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 98 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (6): Message received from the truck at time 0:58:57.344207763 
 DEBUG (6): >>>Pack 
  	 Payload length 3 
@@ -8355,7 +8355,7 @@ DEBUG (8): >>>Pack
  		 msg_id: 99 
 
  
-DEBUG (8): Truck packet sent to SF...
+DEBUG (8): packet sent to SF...
 DEBUG (2): Message received from the truck at time 0:59:37.792617802 
 DEBUG (2): >>>Pack 
  	 Payload length 3 
